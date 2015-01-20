@@ -28,7 +28,7 @@
         <pose>0 0 0.047800 0 0 0</pose>
         <geometry>
           <mesh>
-            <uri>/home/krishna/catkin_ws/src/SwarmProject/swarm_simulator_personal/model/meshes/create_body.dae</uri>
+            <uri>model://create/meshes/create_body.dae</uri>
           </mesh>
         </geometry>
       </visual>
