@@ -123,6 +123,28 @@ add_executable(quad_simulator_node ${QUAD_SIMU})
 target_link_libraries(quad_simulator_node ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 
 
+set(GROUND_BOT    
+  src/groundbot.cpp
+)
+
+add_executable(groundbot_node ${GROUND_BOT})
+
+## Add cmake target dependencies of the executable/library
+## as an example, message headers may need to be generated before nodes
+# add_dependencies(quad_simulator_node quad_simulator_generate_messages_cpp)
+target_link_libraries(groundbot_node ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+
+set(PATROLBOT    
+  src/patrolbot.cpp
+)
+
+add_executable(patrolbot_node ${PATROLBOT})
+
+## Add cmake target dependencies of the executable/library
+## as an example, message headers may need to be generated before nodes
+# add_dependencies(quad_simulator_node quad_simulator_generate_messages_cpp)
+target_link_libraries(patrolbot_node ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(quad_simulator_node
 #   ${catkin_LIBRARIES}

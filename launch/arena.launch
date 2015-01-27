@@ -10,6 +10,14 @@
 
    <!-- <node pkg="gazebo_ros" name="create_model" type= "spawn_model" args="-file /home/krishna/catkin_ws/src/QuadProject/create/model-1_4.sdf -sdf -model create" output="screen"/> -->
 
+   <group ns="ground">
+    <include file="$(find quad_simulator)/launch/ground.launch">
+      <arg name="robot_name" value="ground"/>
+      <arg name="init_pose" value="-x 0 -y -0 -z 0"/>
+    </include>
+  </group>
+
+
    <group ns="robot0">
     <include file="$(find quad_simulator)/launch/one_patrolbot.launch">
       <arg name="robot_name" value="patrolbot0"/>
@@ -93,6 +101,5 @@
   <include file="$(find cvg_sim_gazebo)/launch/spawn_quadrotor.launch" >
     <arg name="model" value="$(find cvg_sim_gazebo)/urdf/quadrotor_sensors.urdf.xacro"/> 
   </include>
-
 
 </launch>
