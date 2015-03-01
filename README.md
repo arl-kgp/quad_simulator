@@ -25,7 +25,7 @@ export GAZEBO_MODEL_PATH=~/gazebo_models/
 export GAZEBO_RESOURCE_PATH=/usr/share/gazebo-2.2/worlds/
 ```
 
-- Extract gazebo_models.zip to your home folder
+- Extract [gazebo_models.zip](https://drive.google.com/file/d/0B-yT84mLsuTTOGFlRUtBeWktdVk/view?usp=sharing) to your home folder
 
 Make a folder Quadcopter in your catkin_ws/src directory. go to that directory and clone tum_ardrone from https://github.com/tum-vision/tum_ardrone.git
 ```sh
