@@ -11,12 +11,6 @@ To setup the simulator :
 
 - Add the iarc_arena folder to the GAZEBO_MODEL_PATH as set in the environment.
 
-To run the simulator for the current arena : <br />
-
-```sh
-$ roslaunch quad_simulator arena.launch
-```
-
 Install Gazebo:
 ```sh
 $ sudo apt-get install ros-indigo-gazebo-ros-pkgs ros-indigo-gazebo-ros-control
