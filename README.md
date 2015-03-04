@@ -43,21 +43,7 @@ $ catkin_make
 $ sudo apt-get install freeglut3-dev liblapack3gf liblapack-dev libblas3gf libblas-dev
 ```
 
-- On success go to catkin_ws/src/Quadcopter and clone: tum_simulator from https://github.com/tum-vision/tum_simulator.git
-
-- Go to catkin_ws/src/Quadcopter/tum_simulator/cvg_sim_gazebo_plugins
-
-- Edit CMakeLists.txt 
-- Search for ${SDFormat_INCLUDE_DIRS} in that file and add /usr/include/gazebo-2.2/gazebo/ after it on the next line
-
-- Go to catkin_ws/src/Quadcopter/tum_simulator/cvg_sim_gazebo_plugins and replace all occurrences of  
-    - shared_dynamic_cast with dynamic_pointer_cast
-    - DisconnectWorldUpdateStart with DisconnectWorldUpdateBegin
-
-in each of the following files
-diffdrive_plugin_6w.cpp,   gazebo_ros_sonar.cpp ,gazebo_ros_baro.cpp  
-quadrotor_simple_controller.cpp, gazebo_ros_gps.cpp, quadrotor_state_controller.cpp
-gazebo_ros_imu.cpp, gazebo_ros_magnetic.cpp
+- On success go to catkin_ws/src/Quadcopter and clone: tum_simulator from https://github.com/quadrotor-IITKgp/tum_simulator
 
 ```sh
 $ roscd
@@ -75,7 +61,7 @@ $ catkin_make
 
 If everything runs successfully then quad simulator is installed.
 
-test it using
+Test it using
 
 ```sh
 $ killall gzserver
