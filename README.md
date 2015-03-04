@@ -20,12 +20,14 @@ export GAZEBO_RESOURCE_PATH=/usr/share/gazebo-2.2/worlds/
 - Extract [gazebo_models.zip](https://drive.google.com/file/d/0B-yT84mLsuTTOGFlRUtBeWktdVk/view?usp=sharing) to your home folder
 
 - Make a folder Quadcopter in your catkin_ws/src directory. go to that directory and clone tum_ardrone from https://github.com/tum-vision/tum_ardrone.git
+
+- In catkin_ws/src/Quadcopter
 ```sh
-$ roscd
+$ git clone https://github.com/AutonomyLab/ardrone_autonomy.git -b hydro-devel
+$ cd ~/catkin_ws
 $ catkin_make
 ```
 
-- Clone ardrone_autonomy from https://github.com/tum-vision/ardrone_autonomy.git in your catkin_ws/src folder.
 - You will get an error most probably.
 - So now edit ~/catkin_ws/build/ardrone/tmp/ardronelib-gitclone.cmake 
 - Change git:// to https://
@@ -35,13 +37,10 @@ $ roscd
 $ catkin_make
 ```
 
-- In catkin_ws/src/Quadcopter
+- If you still get an error at this step, then some libraries aren't installed on your computer. The above package has the following dependencies and install them if you don't have them:
+
 ```sh
-$ git clone https://github.com/AutonomyLab/ardrone_autonomy.git -b hydro-devel
-$ cd ~/catkin_ws
-$ catkin_make
-$ roscd
-$ catkin_make
+$ sudo apt-get install freeglut3-dev liblapack3gf liblapack-dev libblas3gf libblas-dev
 ```
 
 - On success go to catkin_ws/src/Quadcopter and clone: tum_simulator from https://github.com/tum-vision/tum_simulator.git
