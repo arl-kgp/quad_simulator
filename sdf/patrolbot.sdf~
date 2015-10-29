@@ -183,16 +183,6 @@
           </range>
         </ray>
       </sensor>
-
-      <sensor name='my_contact' type='contact'>
-      	<plugin name="my_plugin" filename="libcontact.so"/>
-          <contact>
-            <collision>base_collision</collision>
-          </contact>
-          <update_rate> 5 </update_rate>
-      </sensor>
-
-
     </link>
 
 
@@ -313,6 +303,39 @@
       <odometryFrame>odom</odometryFrame>
       <robotBaseFrame>base_footprint</robotBaseFrame>
       </plugin>
+
+      <link name="cylinder">
+        <pose>0 0 0.241 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>.1</radius>
+              <length>.4</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>.1</radius>
+              <length>.4</length>
+            </cylinder>
+          </geometry>
+        </visual>
+      </link>
+
+      <joint type="revolute" name="joints">
+        <child>cylinder</child>
+        <parent>base</parent>
+        <axis>
+          <xyz>0 0 0</xyz>
+          <limit>
+          <upper>0</upper>
+          <lower>0</lower>
+        </limit>
+        </axis>
+      </joint>
+
   </model>
  
 </sdf>

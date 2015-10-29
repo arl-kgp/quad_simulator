@@ -18,9 +18,10 @@
       <collision name="base_collision">
         <pose>0 0 0.047800 0 0 0</pose>
         <geometry>
-          <mesh>
-            <uri>model://create/meshes/create_body.dae</uri>
-          </mesh>
+          <cylinder>
+            <radius>0.016495</radius>
+            <length>0.061163</length>
+          </cylinder>
         </geometry>
       </collision>
       <visual name="base_visual">
