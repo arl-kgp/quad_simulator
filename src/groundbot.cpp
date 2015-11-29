@@ -41,6 +41,7 @@ double time_begin_4 = 0;
 double z_target_4 = 0;
 char prev_4 = '0';
 bool start_turn_4 = false;
+bool quad_top_turn_4 = false;
 
 float vx_5 = v_max;
 float az_5 = 0.0;
@@ -48,6 +49,7 @@ double time_begin_5 = 0;
 double z_target_5 = 0.683;
 char prev_5 = '0';
 bool start_turn_5 = false;
+bool quad_top_turn_5 = false;
 
 float vx_6 = v_max;
 float az_6 = 0.0;
@@ -55,6 +57,7 @@ double time_begin_6 = 0;
 double z_target_6 = 1.234;
 char prev_6 = '0';
 bool start_turn_6 = false;
+bool quad_top_turn_6 = false;
 
 float vx_7 = v_max;
 float az_7 = 0.0;
@@ -62,6 +65,7 @@ double time_begin_7 = 0;
 double z_target_7 = 1.907;
 char prev_7 = '0';
 bool start_turn_7 = false;
+bool quad_top_turn_7 = false;
 
 float vx_8 = v_max;
 float az_8 = 0.0;
@@ -69,6 +73,7 @@ double time_begin_8 = 0;
 double z_target_8 = 2.458;
 char prev_8 = '0';
 bool start_turn_8 = false;
+bool quad_top_turn_8 = false;
 
 float vx_9 = v_max;
 float az_9 = 0.0;
@@ -76,6 +81,7 @@ double time_begin_9 = 0;
 double z_target_9 = 0;
 char prev_9 = '0';
 bool start_turn_9 = false;
+bool quad_top_turn_9 = false;
 
 float vx_10 = v_max;
 float az_10 = 0.0;
@@ -83,6 +89,7 @@ double time_begin_10 = 0;
 double z_target_10 = -2.458;
 char prev_10 = '0';
 bool start_turn_10 = false;
+bool quad_top_turn_10 = false;
 
 float vx_11 = v_max;
 float az_11 = 0.0;
@@ -90,6 +97,7 @@ double time_begin_11 = 0;
 double z_target_11 = -1.907;
 char prev_11 = '0';
 bool start_turn_11 = false;
+bool quad_top_turn_11 = false;
 
 float vx_12 = v_max;
 float az_12 = 0.0;
@@ -97,6 +105,7 @@ double time_begin_12 = 0;
 double z_target_12 = -1.234;
 char prev_12 = '0';
 bool start_turn_12 = false;
+bool quad_top_turn_12 = false;
 
 float vx_13 = v_max;
 float az_13 = 0.0;
@@ -104,6 +113,7 @@ double time_begin_13 = 0;
 double z_target_13 = -0.683;
 char prev_13 = '0';
 bool start_turn_13 = false;
+bool quad_top_turn_13 = false;
 
 
 class Controller
@@ -179,47 +189,47 @@ public:
 
   void move_patrolbots(std::string identification)
   {
-  	geometry_msgs::Twist command;
-  	if(identification == "all")
-  	{  		
-	    command.linear.x = v_max;
-	    command.angular.z = a_max_p;
-	    command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
-	    vel_pub_0.publish(command);
-	    vel_pub_1.publish(command);
-	    vel_pub_2.publish(command);
-	    command.linear.x = -v_max;
-	    vel_pub_3.publish(command);
-  	}
-  	else if(identification == "robot0")
-  	{  		
-	    command.linear.x = vx_0;
-	    command.angular.z = az_0;
-	    command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
-	    vel_pub_0.publish(command);	    
-  	}
-  	else if(identification == "robot1")
-  	{  		
-	    command.linear.x = vx_1;
-	    command.angular.z = az_1;
-	    command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
-	    vel_pub_1.publish(command);	    
-  	}
-  	else if(identification == "robot2")
-  	{  		
-	    command.linear.x = vx_2;
-	    command.angular.z = az_2;
-	    command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
-	    vel_pub_2.publish(command);	    
-  	}
-  	else if(identification == "robot3")
-  	{  		
-	    command.linear.x = -vx_3;
-	    command.angular.z = az_3;
-	    command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
-	    vel_pub_3.publish(command);	    
-  	}
-	
+    geometry_msgs::Twist command;
+    if(identification == "all")
+    {     
+      command.linear.x = v_max;
+      command.angular.z = a_max_p;
+      command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
+      vel_pub_0.publish(command);
+      vel_pub_1.publish(command);
+      vel_pub_2.publish(command);
+      command.linear.x = -v_max;
+      vel_pub_3.publish(command);
+    }
+    else if(identification == "robot0")
+    {     
+      command.linear.x = vx_0;
+      command.angular.z = az_0;
+      command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
+      vel_pub_0.publish(command);     
+    }
+    else if(identification == "robot1")
+    {     
+      command.linear.x = vx_1;
+      command.angular.z = az_1;
+      command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
+      vel_pub_1.publish(command);     
+    }
+    else if(identification == "robot2")
+    {     
+      command.linear.x = vx_2;
+      command.angular.z = az_2;
+      command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
+      vel_pub_2.publish(command);     
+    }
+    else if(identification == "robot3")
+    {     
+      command.linear.x = -vx_3;
+      command.angular.z = az_3;
+      command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
+      vel_pub_3.publish(command);     
+    }
+  
   }
 
   void GetEulerAngles(Quaternionm q, double& yaw, double& pitch, double& roll)
@@ -258,97 +268,97 @@ public:
   //Main function to publish velocities
   void publish_velocity(std::string identification)
   {
-  	if(identification == "robot4/odom")
-  	{
-  		geometry_msgs::Twist command;
-	    command.linear.x = vx_4;
-	    command.angular.z = az_4;
-	    command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
-	    vel_pub_4.publish(command);
-  	}
-  	else if(identification == "robot5/odom")
-  	{
-  		geometry_msgs::Twist command;
-	    command.linear.x = vx_5;
-	    command.angular.z = az_5;
-	    command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
-	    vel_pub_5.publish(command);
-  	} 
-  	else if(identification == "robot6/odom")
-  	{
-  		geometry_msgs::Twist command;
-	    command.linear.x = vx_6;
-	    command.angular.z = az_6;
-	    command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
-	    vel_pub_6.publish(command);
-  	}
-  	else if(identification == "robot7/odom")
-  	{
-  		geometry_msgs::Twist command;
-	    command.linear.x = vx_7;
-	    command.angular.z = az_7;
-	    command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
-	    vel_pub_7.publish(command);
-  	}
-  	else if(identification == "robot8/odom")
-  	{
-  		geometry_msgs::Twist command;
-	    command.linear.x = vx_8;
-	    command.angular.z = az_8;
-	    command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
-	    vel_pub_8.publish(command);
-  	}
-  	else if(identification == "robot9/odom")
-  	{
-  		geometry_msgs::Twist command;
-	    command.linear.x = -vx_9;
-	    command.angular.z = az_9;
-	    command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
-	    vel_pub_9.publish(command);
-  	}
-  	else if(identification == "robot10/odom")
-  	{
-  		geometry_msgs::Twist command;
-	    command.linear.x = vx_10;
-	    command.angular.z = az_10;
-	    command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
-	    vel_pub_10.publish(command);
-  	}
-  	else if(identification == "robot11/odom")
-  	{
-  		geometry_msgs::Twist command;
-	    command.linear.x = vx_11;
-	    command.angular.z = az_11;
-	    command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
-	    vel_pub_11.publish(command);
-  	}
-  	else if(identification == "robot12/odom")
-  	{
-  		geometry_msgs::Twist command;
-	    command.linear.x = vx_12;
-	    command.angular.z = az_12;
-	    command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
-	    vel_pub_12.publish(command);
-  	}
-  	else if(identification == "robot13/odom")
-  	{
-  		geometry_msgs::Twist command;
-	    command.linear.x = vx_13;
-	    command.angular.z = az_13;
-	    command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
-	    vel_pub_13.publish(command);
-  	}			
+    if(identification == "robot4/odom")
+    {
+      geometry_msgs::Twist command;
+      command.linear.x = vx_4;
+      command.angular.z = az_4;
+      command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
+      vel_pub_4.publish(command);
+    }
+    else if(identification == "robot5/odom")
+    {
+      geometry_msgs::Twist command;
+      command.linear.x = vx_5;
+      command.angular.z = az_5;
+      command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
+      vel_pub_5.publish(command);
+    } 
+    else if(identification == "robot6/odom")
+    {
+      geometry_msgs::Twist command;
+      command.linear.x = vx_6;
+      command.angular.z = az_6;
+      command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
+      vel_pub_6.publish(command);
+    }
+    else if(identification == "robot7/odom")
+    {
+      geometry_msgs::Twist command;
+      command.linear.x = vx_7;
+      command.angular.z = az_7;
+      command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
+      vel_pub_7.publish(command);
+    }
+    else if(identification == "robot8/odom")
+    {
+      geometry_msgs::Twist command;
+      command.linear.x = vx_8;
+      command.angular.z = az_8;
+      command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
+      vel_pub_8.publish(command);
+    }
+    else if(identification == "robot9/odom")
+    {
+      geometry_msgs::Twist command;
+      command.linear.x = -vx_9;
+      command.angular.z = az_9;
+      command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
+      vel_pub_9.publish(command);
+    }
+    else if(identification == "robot10/odom")
+    {
+      geometry_msgs::Twist command;
+      command.linear.x = vx_10;
+      command.angular.z = az_10;
+      command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
+      vel_pub_10.publish(command);
+    }
+    else if(identification == "robot11/odom")
+    {
+      geometry_msgs::Twist command;
+      command.linear.x = vx_11;
+      command.angular.z = az_11;
+      command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
+      vel_pub_11.publish(command);
+    }
+    else if(identification == "robot12/odom")
+    {
+      geometry_msgs::Twist command;
+      command.linear.x = vx_12;
+      command.angular.z = az_12;
+      command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
+      vel_pub_12.publish(command);
+    }
+    else if(identification == "robot13/odom")
+    {
+      geometry_msgs::Twist command;
+      command.linear.x = vx_13;
+      command.angular.z = az_13;
+      command.linear.y = command.linear.z = command.angular.x = command.angular.y = 0;     
+      vel_pub_13.publish(command);
+    }     
     
   }
 
-  // Callback function for odom
+  // Callback function for contact
   void contactCb(const std_msgs::String::ConstPtr& msg)
   {
-  	if(first_run)
-  	{
-  		move_patrolbots("all");
-  		first_run = false;
-  	}
+    if(first_run)
+    {
+      move_patrolbots("all");
+      first_run = false;
+    }
     char str[29];
     std::string data;
     strncpy(str, msg->data.c_str(), sizeof(str));
@@ -362,19 +372,19 @@ public:
     //ROS_INFO("data: %s",pch);  
     if(data == "1" && prev_0 == '0')
     { 
-    	prev_0 = '1';
-    	vx_0 = 0;
-    	az_0 = 0;
-    	//ROS_INFO("Stopping bot0");
-    	move_patrolbots("robot0"); 
+      prev_0 = '1';
+      vx_0 = 0;
+      az_0 = 0;
+      //ROS_INFO("Stopping bot0");
+      move_patrolbots("robot0"); 
     }
     else if(data == "0" && prev_0 == '1')
     {
-    	prev_0 = '0'; 
-    	vx_0 = v_max;
-    	az_0 = a_max_p;
-    	//ROS_INFO("Moving bot0");
-    	move_patrolbots("robot0");     	
+      prev_0 = '0'; 
+      vx_0 = v_max;
+      az_0 = a_max_p;
+      //ROS_INFO("Moving bot0");
+      move_patrolbots("robot0");      
     }
 
     //1st
@@ -382,17 +392,17 @@ public:
     data = pch;    
     if(data == "1" && prev_1 == '0')
     { 
-    	prev_1 = '1';
-    	vx_1 = 0;
-    	az_1 = 0;
-    	move_patrolbots("robot1"); 
+      prev_1 = '1';
+      vx_1 = 0;
+      az_1 = 0;
+      move_patrolbots("robot1"); 
     }
     else if(data == "0" && prev_1 == '1')
     {
-    	prev_1 = '0'; 
-    	vx_1 = v_max;
-    	az_1 = a_max_p;
-    	move_patrolbots("robot1");     	
+      prev_1 = '0'; 
+      vx_1 = v_max;
+      az_1 = a_max_p;
+      move_patrolbots("robot1");      
     }
 
     //2nd
@@ -400,17 +410,17 @@ public:
     data = pch;    
     if(data == "1" && prev_2 == '0')
     { 
-    	prev_2 = '1';
-    	vx_2 = 0;
-    	az_2 = 0;
-    	move_patrolbots("robot2"); 
+      prev_2 = '1';
+      vx_2 = 0;
+      az_2 = 0;
+      move_patrolbots("robot2"); 
     }
     else if(data == "0" && prev_2 == '1')
     {
-    	prev_2 = '0'; 
-    	vx_2 = v_max;
-    	az_2 = a_max_p;
-    	move_patrolbots("robot2");     	
+      prev_2 = '0'; 
+      vx_2 = v_max;
+      az_2 = a_max_p;
+      move_patrolbots("robot2");      
     }
 
     //3rd
@@ -418,26 +428,27 @@ public:
     data = pch;    
     if(data == "1" && prev_3 == '0')
     { 
-    	prev_3 = '1';
-    	vx_3 = 0;
-    	az_3 = 0;
-    	move_patrolbots("robot3"); 
+      prev_3 = '1';
+      vx_3 = 0;
+      az_3 = 0;
+      move_patrolbots("robot3"); 
     }
     else if(data == "0" && prev_3 == '1')
     {
-    	prev_3 = '0'; 
-    	vx_3 = v_max;
-    	az_3 = a_max_p;
-    	move_patrolbots("robot3");     	
+      prev_3 = '0'; 
+      vx_3 = v_max;
+      az_3 = a_max_p;
+      move_patrolbots("robot3");      
     }
     
     //4th
     pch = strtok (NULL, " ");
     data = pch;    
     if(data == "1" && prev_4 == '0')
-    {    	
-    	start_turn_4 = true;
-    	prev_4 = '1'; 
+    {     
+      start_turn_4 = true;
+      quad_top_turn_4 = true;
+      prev_4 = '1'; 
     }
     else if(data == "0" && prev_4 == '1')prev_4 = '0'; 
 
@@ -446,8 +457,9 @@ public:
     data = pch;    
     if(data == "1" && prev_5 == '0')
     {
-    	start_turn_5 = true;
-    	prev_5 = '1';    	
+      start_turn_5 = true;
+      quad_top_turn_5 = true;
+      prev_5 = '1';     
     }
     else if(data == "0" && prev_5 == '1')prev_5 = '0';
 
@@ -456,8 +468,9 @@ public:
     data = pch;    
     if(data == "1" && prev_6 == '0')
     {
-    	start_turn_6 = true;
-    	prev_6 = '1';    	
+      start_turn_6 = true;
+      quad_top_turn_6 = true;
+      prev_6 = '1';     
     }
     else if(data == "0" && prev_6 == '1')prev_6 = '0';
 
@@ -466,8 +479,9 @@ public:
     data = pch;    
     if(data == "1" && prev_7 == '0')
     {
-    	start_turn_7 = true;
-    	prev_7 = '1';    	
+      start_turn_7 = true;
+      quad_top_turn_7 = true;
+      prev_7 = '1';     
     }
     else if(data == "0" && prev_7 == '1')prev_7 = '0';
 
@@ -476,8 +490,9 @@ public:
     data = pch;    
     if(data == "1" && prev_8 == '0')
     {
-    	start_turn_8 = true;
-    	prev_8 = '1';    	
+      start_turn_8 = true;
+      quad_top_turn_8 = true;
+      prev_8 = '1';     
     }
     else if(data == "0" && prev_8 == '1')prev_8 = '0';
 
@@ -486,8 +501,9 @@ public:
     data = pch;    
     if(data == "1" && prev_9 == '0')
     {
-    	start_turn_9 = true;
-    	prev_9 = '1';    	
+      start_turn_9 = true;
+      quad_top_turn_9 = true;
+      prev_9 = '1';     
     }
     else if(data == "0" && prev_9 == '1')prev_9 = '0';
 
@@ -496,8 +512,9 @@ public:
     data = pch;    
     if(data == "1" && prev_10 == '0')
     {
-    	start_turn_10 = true;
-    	prev_10 = '1';    	
+      start_turn_10 = true;
+      quad_top_turn_10 = true;
+      prev_10 = '1';      
     }
     else if(data == "0" && prev_10 == '1')prev_10 = '0';
 
@@ -506,8 +523,9 @@ public:
     data = pch;    
     if(data == "1" && prev_11 == '0')
     {
-    	start_turn_11 = true;
-    	prev_11 = '1';    	
+      start_turn_11 = true;
+      quad_top_turn_11 = true;
+      prev_11 = '1';      
     }
     else if(data == "0" && prev_11 == '1')prev_11 = '0';
 
@@ -516,8 +534,9 @@ public:
     data = pch;    
     if(data == "1" && prev_12 == '0')
     {
-    	start_turn_12 = true;
-    	prev_12 = '1';    	
+      start_turn_12 = true;
+      quad_top_turn_12 = true;
+      prev_12 = '1';      
     }
     else if(data == "0" && prev_12 == '1')prev_12 = '0';
 
@@ -526,8 +545,9 @@ public:
     data = pch;    
     if(data == "1" && prev_13 == '0')
     {
-    	start_turn_13 = true;
-    	prev_13 = '1';    	
+      start_turn_13 = true;
+      quad_top_turn_13 = true;
+      prev_13 = '1';      
     }
     else if(data == "0" && prev_13 == '1')prev_13 = '0';
   }
@@ -536,11 +556,12 @@ public:
 
   void odomCb(const nav_msgs::Odometry::ConstPtr& msg)
   {
-  	float *vx;
-	double *z_target; 
-	float *az;
-	double *time_begin;
-	bool *start_turn;
+    float *vx;
+  double *z_target; 
+  float *az;
+  double *time_begin;
+  bool *start_turn;
+  bool *quad_top_turn;
 
     Quaternionm myq;
     double yaw = 0;
@@ -553,133 +574,150 @@ public:
     GetEulerAngles(myq, yaw, pitch, roll);
     double time_present = ros::Time::now().toSec();  
 
-   	if(msg->header.frame_id == "robot4/odom")
-   	{
-   		vx = &vx_4;
-	  	z_target = &z_target_4;
-	  	az = &az_4;
-	  	time_begin = &time_begin_4;
-	  	start_turn = &start_turn_4;
-   	}
-   	else if(msg->header.frame_id == "robot5/odom")
-   	{
-   		vx = &vx_5;
-	  	z_target = &z_target_5;
-	  	az = &az_5;
-	  	time_begin = &time_begin_5;
-	  	start_turn = &start_turn_5;
-   	}
-   	else if(msg->header.frame_id == "robot6/odom")
-   	{
-   		vx = &vx_6;
-	  	z_target = &z_target_6;
-	  	az = &az_6;
-	  	time_begin = &time_begin_6;
-	  	start_turn = &start_turn_6;
-   	}
-   	else if(msg->header.frame_id == "robot7/odom")
-   	{
-   		vx = &vx_7;
-	  	z_target = &z_target_7;
-	  	az = &az_7;
-	  	time_begin = &time_begin_7;
-	  	start_turn = &start_turn_7;
-   	}
-   	else if(msg->header.frame_id == "robot8/odom")
-   	{
-   		vx = &vx_8;
-	  	z_target = &z_target_8;
-	  	az = &az_8;
-	  	time_begin = &time_begin_8;
-	  	start_turn = &start_turn_8;
-   	}
-   	else if(msg->header.frame_id == "robot9/odom")
-   	{
-   		vx = &vx_9;
-	  	z_target = &z_target_9;
-	  	az = &az_9;
-	  	time_begin = &time_begin_9;
-	  	start_turn = &start_turn_9;
-   	}
-   	else if(msg->header.frame_id == "robot10/odom")
-   	{
-   		vx = &vx_10;
-	  	z_target = &z_target_10;
-	  	az = &az_10;
-	  	time_begin = &time_begin_10;
-	  	start_turn = &start_turn_10;
-   	}
-   	else if(msg->header.frame_id == "robot11/odom")
-   	{
-   		vx = &vx_11;
-	  	z_target = &z_target_11;
-	  	az = &az_11;
-	  	time_begin = &time_begin_11;
-	  	start_turn = &start_turn_11;
-   	}
-   	else if(msg->header.frame_id == "robot12/odom")
-   	{
-   		vx = &vx_12;
-	  	z_target = &z_target_12;
-	  	az = &az_12;
-	  	time_begin = &time_begin_12;
-	  	start_turn = &start_turn_12;
-   	}
-   	else if(msg->header.frame_id == "robot13/odom")
-   	{
-   		vx = &vx_13;
-	  	z_target = &z_target_13;
-	  	az = &az_13;
-	  	time_begin = &time_begin_13;
-	  	start_turn = &start_turn_13;
-   	}
-   		
-  	    	
+    if(msg->header.frame_id == "robot4/odom")
+    {
+      vx = &vx_4;
+      z_target = &z_target_4;
+      az = &az_4;
+      time_begin = &time_begin_4;
+      start_turn = &start_turn_4;
+      quad_top_turn = &quad_top_turn_4;
+    }
+    else if(msg->header.frame_id == "robot5/odom")
+    {
+      vx = &vx_5;
+      z_target = &z_target_5;
+      az = &az_5;
+      time_begin = &time_begin_5;
+      start_turn = &start_turn_5;
+      quad_top_turn = &quad_top_turn_5;
+    }
+    else if(msg->header.frame_id == "robot6/odom")
+    {
+      vx = &vx_6;
+      z_target = &z_target_6;
+      az = &az_6;
+      time_begin = &time_begin_6;
+      start_turn = &start_turn_6;
+      quad_top_turn = &quad_top_turn_6;
+    }
+    else if(msg->header.frame_id == "robot7/odom")
+    {
+      vx = &vx_7;
+      z_target = &z_target_7;
+      az = &az_7;
+      time_begin = &time_begin_7;
+      start_turn = &start_turn_7;
+      quad_top_turn = &quad_top_turn_7;
+    }
+    else if(msg->header.frame_id == "robot8/odom")
+    {
+      vx = &vx_8;
+      z_target = &z_target_8;
+      az = &az_8;
+      time_begin = &time_begin_8;
+      start_turn = &start_turn_8;
+      quad_top_turn = &quad_top_turn_8;
+    }
+    else if(msg->header.frame_id == "robot9/odom")
+    {
+      vx = &vx_9;
+      z_target = &z_target_9;
+      az = &az_9;
+      time_begin = &time_begin_9;
+      start_turn = &start_turn_9;
+      quad_top_turn = &quad_top_turn_9;
+    }
+    else if(msg->header.frame_id == "robot10/odom")
+    {
+      vx = &vx_10;
+      z_target = &z_target_10;
+      az = &az_10;
+      time_begin = &time_begin_10;
+      start_turn = &start_turn_10;
+      quad_top_turn = &quad_top_turn_10;
+    }
+    else if(msg->header.frame_id == "robot11/odom")
+    {
+      vx = &vx_11;
+      z_target = &z_target_11;
+      az = &az_11;
+      time_begin = &time_begin_11;
+      start_turn = &start_turn_11;
+      quad_top_turn = &quad_top_turn_11;
+    }
+    else if(msg->header.frame_id == "robot12/odom")
+    {
+      vx = &vx_12;
+      z_target = &z_target_12;
+      az = &az_12;
+      time_begin = &time_begin_12;
+      start_turn = &start_turn_12;
+      quad_top_turn = &quad_top_turn_12;
+    }
+    else if(msg->header.frame_id == "robot13/odom")
+    {
+      vx = &vx_13;
+      z_target = &z_target_13;
+      az = &az_13;
+      time_begin = &time_begin_13;
+      start_turn = &start_turn_13;
+      quad_top_turn = &quad_top_turn_13;
+    }
+      
+          
       double diff = *z_target - yaw;
       diff = fabs(diff);
       //ROS_INFO("time_present: %lf, time_begin: %lf, roll: %lf",time_present,time_begin,diff);
       if(diff < 0.13490)
-      {      	
+      {       
         *vx = v_max;
         *az = 0;
       }
       else
       {
-      	*time_begin = time_present;
+        *time_begin = time_present;
         *vx = 0;
         *az = a_max;
       }
 
     if(time_present - *time_begin > wait_period)
     {
-    	angle_diff = 45;		
-		calculate_turn = true;		
+      angle_diff = 45;    
+      calculate_turn = true;    
     }
 
     if(*start_turn == true)
     {
-    	angle_diff = 180;
-    	calculate_turn = true;
-    	*start_turn = false;
+      angle_diff = 180;
+      calculate_turn = true;
+      *start_turn = false;
+    }
+
+    if(*quad_top_turn == true)
+    {
+      angle_diff = 45;
+      calculate_turn = true;
+      *quad_top_turn = false;
     }
 
 
     if(calculate_turn)
     {
-    	double turn_angle = (angle_diff*3.141592)/180;
-		*z_target = yaw - turn_angle;
-		if(*z_target > 3.14)
-		{
-			*z_target = 2*3.14 - *z_target;
-		}
-		else if(*z_target < -3.14)
-		{
-			*z_target = 2*3.14 + *z_target;
-		}
-		//ROS_INFO("target: %lf",z_target);
-		*time_begin = time_present;         	
-		calculate_turn = false;
-		*vx = -v_max*5;
+      double turn_angle = (angle_diff*3.141592)/180;
+    *z_target = yaw - turn_angle;
+    if(*z_target > 3.14)
+    {
+      *z_target = 2*3.14 - *z_target;
+    }
+    else if(*z_target < -3.14)
+    {
+      *z_target = 2*3.14 + *z_target;
+    }
+    //ROS_INFO("target: %lf",z_target);
+    *time_begin = time_present;           
+    calculate_turn = false;
+    *vx = -v_max*5;
     }
     publish_velocity(msg->header.frame_id);
   }
