@@ -74,8 +74,8 @@ void ContactPlugin::OnUpdate()
     ss2 << "Collision between[" << contacts.contact(i).collision1()
               << "] and [" << contacts.contact(i).collision2() << "]\n";
 
-    //std::display = ss2.str();
-    //ROS_INFO("%s",display);
+    //std::String display = ss2.str();
+    //ROS_INFO("%s",ss2.str().c_str());
 
     std::string tmp = contacts.contact(i).collision1();
     char str[32];
