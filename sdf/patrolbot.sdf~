@@ -183,16 +183,6 @@
           </range>
         </ray>
       </sensor>
-
-      <sensor name='my_contact' type='contact'>
-      	<plugin name="my_plugin" filename="libcontact.so"/>
-          <contact>
-            <collision>base_collision</collision>
-          </contact>
-          <update_rate> 5 </update_rate>
-      </sensor>
-
-
     </link>
 
 
@@ -284,33 +274,6 @@
       </visual>
     </link>
 
-    <link name="top_sensor">
-        <pose>0 0 0.08 0 0 0</pose>
-        <collision name="top_collision">
-          <geometry>
-            <cylinder>
-              <radius>0.125</radius>
-              <length>0.1</length>
-            </cylinder>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <cylinder>
-              <radius>0.125</radius>
-              <length>0.001</length>
-            </cylinder>
-          </geometry>
-        </visual>
-        <sensor name='my_contact_top' type='contact'>
-        <plugin name="my_plugin" filename="libcontact.so"/>
-          <contact>
-            <collision>top_collision</collision>
-          </contact>
-          <update_rate> 5 </update_rate>
-      </sensor>
-      </link>    
-
     <joint name="left_wheel" type="revolute">
       <parent>base</parent>
       <child>left_wheel</child>
@@ -327,18 +290,6 @@
       </axis>
     </joint>
 
-    <joint name="top_sensor_joint" type="revolute">            
-      <parent>base</parent>
-      <child>top_sensor</child> 
-      <axis>
-        <xyz>1 0 0</xyz>
-        <limit>
-          <upper>0</upper>
-          <lower>0</lower>
-        </limit>
-      </axis>   
-    </joint>
-
     <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
       <alwaysOn>true</alwaysOn>
       <updateRate>10</updateRate>
@@ -352,6 +303,39 @@
       <odometryFrame>odom</odometryFrame>
       <robotBaseFrame>base_footprint</robotBaseFrame>
       </plugin>
+
+      <link name="cylinder">
+        <pose>0 0 0.241 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>.1</radius>
+              <length>.4</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>.1</radius>
+              <length>.4</length>
+            </cylinder>
+          </geometry>
+        </visual>
+      </link>
+
+      <joint type="revolute" name="joints">
+        <child>cylinder</child>
+        <parent>base</parent>
+        <axis>
+          <xyz>0 0 0</xyz>
+          <limit>
+          <upper>0</upper>
+          <lower>0</lower>
+        </limit>
+        </axis>
+      </joint>
+
   </model>
  
 </sdf>

@@ -18,10 +18,9 @@
       <collision name="base_collision">
         <pose>0 0 0.047800 0 0 0</pose>
         <geometry>
-          <cylinder>
-            <radius>0.016495</radius>
-            <length>0.061163</length>
-          </cylinder>
+          <mesh>
+            <uri>model://create/meshes/create_body.dae</uri>
+          </mesh>
         </geometry>
       </collision>
       <visual name="base_visual">
@@ -184,6 +183,15 @@
           </range>
         </ray>
       </sensor>
+
+ 	<sensor name='my_contact' type='contact'>
+      	<plugin name="my_plugin" filename="libcontact.so"/>
+          <contact>
+            <collision>base_collision</collision>
+          </contact>
+          <update_rate> 5 </update_rate>
+      </sensor>
+
     </link>
 
 
