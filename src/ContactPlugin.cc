@@ -1,7 +1,7 @@
 #include "ContactPlugin.hh"
 #include "ros/ros.h"
 #include "std_msgs/String.h"
-#include <sensors/sensors.hh>
+#include <gazebo/sensors/sensors.hh>
 #include <string.h>
 #include <stdio.h>
  

@@ -4,7 +4,7 @@ project(quad_simulator)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS	cvg_sim_gazebo gazebo_plugins gazebo_ros gazebo_msgs)
+find_package(catkin REQUIRED COMPONENTS	gazebo_plugins gazebo_ros gazebo_msgs)
 
 find_package(gazebo)
 

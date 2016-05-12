@@ -16,8 +16,6 @@
       <arg name="init_pose" value="-x 0 -y -0 -z 0"/>
     </include>
   </group>
-
-
    
    <group ns="robot0">
     <include file="$(find quad_simulator)/launch/one_patrolbot.launch">
