@@ -41,7 +41,6 @@ double time_begin_4 = 0;
 double z_target_4 = 0;
 char prev_4 = '0';
 bool start_turn_4 = false;
-bool quad_top_turn_4 = false;
 
 float vx_5 = v_max;
 float az_5 = 0.0;
@@ -49,7 +48,6 @@ double time_begin_5 = 0;
 double z_target_5 = 0.683;
 char prev_5 = '0';
 bool start_turn_5 = false;
-bool quad_top_turn_5 = false;
 
 float vx_6 = v_max;
 float az_6 = 0.0;
@@ -57,7 +55,6 @@ double time_begin_6 = 0;
 double z_target_6 = 1.234;
 char prev_6 = '0';
 bool start_turn_6 = false;
-bool quad_top_turn_6 = false;
 
 float vx_7 = v_max;
 float az_7 = 0.0;
@@ -65,7 +62,6 @@ double time_begin_7 = 0;
 double z_target_7 = 1.907;
 char prev_7 = '0';
 bool start_turn_7 = false;
-bool quad_top_turn_7 = false;
 
 float vx_8 = v_max;
 float az_8 = 0.0;
@@ -73,7 +69,6 @@ double time_begin_8 = 0;
 double z_target_8 = 2.458;
 char prev_8 = '0';
 bool start_turn_8 = false;
-bool quad_top_turn_8 = false;
 
 float vx_9 = v_max;
 float az_9 = 0.0;
@@ -81,7 +76,6 @@ double time_begin_9 = 0;
 double z_target_9 = 0;
 char prev_9 = '0';
 bool start_turn_9 = false;
-bool quad_top_turn_9 = false;
 
 float vx_10 = v_max;
 float az_10 = 0.0;
@@ -89,7 +83,6 @@ double time_begin_10 = 0;
 double z_target_10 = -2.458;
 char prev_10 = '0';
 bool start_turn_10 = false;
-bool quad_top_turn_10 = false;
 
 float vx_11 = v_max;
 float az_11 = 0.0;
@@ -97,7 +90,6 @@ double time_begin_11 = 0;
 double z_target_11 = -1.907;
 char prev_11 = '0';
 bool start_turn_11 = false;
-bool quad_top_turn_11 = false;
 
 float vx_12 = v_max;
 float az_12 = 0.0;
@@ -105,7 +97,6 @@ double time_begin_12 = 0;
 double z_target_12 = -1.234;
 char prev_12 = '0';
 bool start_turn_12 = false;
-bool quad_top_turn_12 = false;
 
 float vx_13 = v_max;
 float az_13 = 0.0;
@@ -113,7 +104,6 @@ double time_begin_13 = 0;
 double z_target_13 = -0.683;
 char prev_13 = '0';
 bool start_turn_13 = false;
-bool quad_top_turn_13 = false;
 
 
 class Controller
@@ -351,7 +341,7 @@ public:
     
   }
 
-  // Callback function for contact
+  // Callback function for odom
   void contactCb(const std_msgs::String::ConstPtr& msg)
   {
     if(first_run)
@@ -447,7 +437,6 @@ public:
     if(data == "1" && prev_4 == '0')
     {     
       start_turn_4 = true;
-      quad_top_turn_4 = true;
       prev_4 = '1'; 
     }
     else if(data == "0" && prev_4 == '1')prev_4 = '0'; 
@@ -458,7 +447,6 @@ public:
     if(data == "1" && prev_5 == '0')
     {
       start_turn_5 = true;
-      quad_top_turn_5 = true;
       prev_5 = '1';     
     }
     else if(data == "0" && prev_5 == '1')prev_5 = '0';
@@ -469,7 +457,6 @@ public:
     if(data == "1" && prev_6 == '0')
     {
       start_turn_6 = true;
-      quad_top_turn_6 = true;
       prev_6 = '1';     
     }
     else if(data == "0" && prev_6 == '1')prev_6 = '0';
@@ -480,7 +467,6 @@ public:
     if(data == "1" && prev_7 == '0')
     {
       start_turn_7 = true;
-      quad_top_turn_7 = true;
       prev_7 = '1';     
     }
     else if(data == "0" && prev_7 == '1')prev_7 = '0';
@@ -491,7 +477,6 @@ public:
     if(data == "1" && prev_8 == '0')
     {
       start_turn_8 = true;
-      quad_top_turn_8 = true;
       prev_8 = '1';     
     }
     else if(data == "0" && prev_8 == '1')prev_8 = '0';
@@ -502,7 +487,6 @@ public:
     if(data == "1" && prev_9 == '0')
     {
       start_turn_9 = true;
-      quad_top_turn_9 = true;
       prev_9 = '1';     
     }
     else if(data == "0" && prev_9 == '1')prev_9 = '0';
@@ -513,7 +497,6 @@ public:
     if(data == "1" && prev_10 == '0')
     {
       start_turn_10 = true;
-      quad_top_turn_10 = true;
       prev_10 = '1';      
     }
     else if(data == "0" && prev_10 == '1')prev_10 = '0';
@@ -524,7 +507,6 @@ public:
     if(data == "1" && prev_11 == '0')
     {
       start_turn_11 = true;
-      quad_top_turn_11 = true;
       prev_11 = '1';      
     }
     else if(data == "0" && prev_11 == '1')prev_11 = '0';
@@ -535,7 +517,6 @@ public:
     if(data == "1" && prev_12 == '0')
     {
       start_turn_12 = true;
-      quad_top_turn_12 = true;
       prev_12 = '1';      
     }
     else if(data == "0" && prev_12 == '1')prev_12 = '0';
@@ -546,7 +527,6 @@ public:
     if(data == "1" && prev_13 == '0')
     {
       start_turn_13 = true;
-      quad_top_turn_13 = true;
       prev_13 = '1';      
     }
     else if(data == "0" && prev_13 == '1')prev_13 = '0';
@@ -561,7 +541,6 @@ public:
   float *az;
   double *time_begin;
   bool *start_turn;
-  bool *quad_top_turn;
 
     Quaternionm myq;
     double yaw = 0;
@@ -581,7 +560,6 @@ public:
       az = &az_4;
       time_begin = &time_begin_4;
       start_turn = &start_turn_4;
-      quad_top_turn = &quad_top_turn_4;
     }
     else if(msg->header.frame_id == "robot5/odom")
     {
@@ -590,7 +568,6 @@ public:
       az = &az_5;
       time_begin = &time_begin_5;
       start_turn = &start_turn_5;
-      quad_top_turn = &quad_top_turn_5;
     }
     else if(msg->header.frame_id == "robot6/odom")
     {
@@ -599,7 +576,6 @@ public:
       az = &az_6;
       time_begin = &time_begin_6;
       start_turn = &start_turn_6;
-      quad_top_turn = &quad_top_turn_6;
     }
     else if(msg->header.frame_id == "robot7/odom")
     {
@@ -608,7 +584,6 @@ public:
       az = &az_7;
       time_begin = &time_begin_7;
       start_turn = &start_turn_7;
-      quad_top_turn = &quad_top_turn_7;
     }
     else if(msg->header.frame_id == "robot8/odom")
     {
@@ -617,7 +592,6 @@ public:
       az = &az_8;
       time_begin = &time_begin_8;
       start_turn = &start_turn_8;
-      quad_top_turn = &quad_top_turn_8;
     }
     else if(msg->header.frame_id == "robot9/odom")
     {
@@ -626,7 +600,6 @@ public:
       az = &az_9;
       time_begin = &time_begin_9;
       start_turn = &start_turn_9;
-      quad_top_turn = &quad_top_turn_9;
     }
     else if(msg->header.frame_id == "robot10/odom")
     {
@@ -635,7 +608,6 @@ public:
       az = &az_10;
       time_begin = &time_begin_10;
       start_turn = &start_turn_10;
-      quad_top_turn = &quad_top_turn_10;
     }
     else if(msg->header.frame_id == "robot11/odom")
     {
@@ -644,7 +616,6 @@ public:
       az = &az_11;
       time_begin = &time_begin_11;
       start_turn = &start_turn_11;
-      quad_top_turn = &quad_top_turn_11;
     }
     else if(msg->header.frame_id == "robot12/odom")
     {
@@ -653,7 +624,6 @@ public:
       az = &az_12;
       time_begin = &time_begin_12;
       start_turn = &start_turn_12;
-      quad_top_turn = &quad_top_turn_12;
     }
     else if(msg->header.frame_id == "robot13/odom")
     {
@@ -662,7 +632,6 @@ public:
       az = &az_13;
       time_begin = &time_begin_13;
       start_turn = &start_turn_13;
-      quad_top_turn = &quad_top_turn_13;
     }
       
           
@@ -684,7 +653,7 @@ public:
     if(time_present - *time_begin > wait_period)
     {
       angle_diff = 45;    
-      calculate_turn = true;    
+    calculate_turn = true;    
     }
 
     if(*start_turn == true)
@@ -692,13 +661,6 @@ public:
       angle_diff = 180;
       calculate_turn = true;
       *start_turn = false;
-    }
-
-    if(*quad_top_turn == true)
-    {
-      angle_diff = 45;
-      calculate_turn = true;
-      *quad_top_turn = false;
     }
 
 
