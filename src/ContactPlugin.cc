@@ -25,6 +25,9 @@ ContactPlugin::~ContactPlugin()
 ros::Publisher chatter_pub;
 int argc;
 char **argv;
+float max_update_rate = 2.0;
+common::Time updateRate = common::Time(0, common::Time::SecToNano((1.0/max_update_rate)));
+common::Time prevUpdateTime = common::Time::GetWallTime();
 
 /////////////////////////////////////////////////
 void ContactPlugin::Load(sensors::SensorPtr _sensor, sdf::ElementPtr /*_sdf*/)
@@ -58,6 +61,8 @@ void ContactPlugin::Load(sensors::SensorPtr _sensor, sdf::ElementPtr /*_sdf*/)
 /////////////////////////////////////////////////
 void ContactPlugin::OnUpdate()
 {
+  if (common::Time::GetWallTime() - prevUpdateTime < updateRate)
+    return;
   // Get all the contacts.
   msgs::Contacts contacts;
 
@@ -185,7 +190,7 @@ void ContactPlugin::OnUpdate()
 
     //ROS_INFO("%s",msg.data.str());
 
-   
+    prevUpdateTime = common::Time::GetWallTime();
     chatter_pub.publish(msg);
     ros::spinOnce();
 }
