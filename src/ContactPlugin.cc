@@ -54,6 +54,8 @@ void ContactPlugin::Load(sensors::SensorPtr _sensor, sdf::ElementPtr /*_sdf*/)
 /////////////////////////////////////////////////
 void ContactPlugin::OnUpdate()
 {
+  if (common::Time::GetWallTime() - prevUpdateTime < updateRate)
+    return;
   // Get all the contacts.
   msgs::Contacts contacts;
 
