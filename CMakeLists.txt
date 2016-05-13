@@ -116,22 +116,12 @@ include_directories(
 #  ${catkin_INCLUDE_DIRS}
 #)
 
-set(QUAD_SIMU    
-  src/quad_simulator.cpp
-)
-
-## Declare a cpp library
-# add_library(quad_simulator
-#   src/${PROJECT_NAME}/quad_simulator.cpp
-# )
 
 ## Declare a cpp executable
-add_executable(quad_simulator_node ${QUAD_SIMU})
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(quad_simulator_node quad_simulator_generate_messages_cpp)
-target_link_libraries(quad_simulator_node ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 
 
 set(GROUND_BOT    
@@ -145,16 +135,9 @@ add_executable(groundbot_node ${GROUND_BOT})
 # add_dependencies(quad_simulator_node quad_simulator_generate_messages_cpp)
 target_link_libraries(groundbot_node ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 
-set(PATROLBOT    
-  src/patrolbot.cpp
-)
-
-add_executable(patrolbot_node ${PATROLBOT})
-
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(quad_simulator_node quad_simulator_generate_messages_cpp)
-target_link_libraries(patrolbot_node ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 
 add_library(contact SHARED src/ContactPlugin.cc)
 target_link_libraries(contact ${GAZEBO_libraries})
