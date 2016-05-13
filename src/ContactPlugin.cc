@@ -1,13 +1,7 @@
 #include "ContactPlugin.hh"
-#include "ros/ros.h"
-#include "std_msgs/String.h"
-#include <gazebo/sensors/sensors.hh>
-#include <string.h>
-#include <stdio.h>
 
-#include <sstream>
-
-char word_sep = ' ';
+int argc;
+char **argv;
 
 using namespace gazebo;
 GZ_REGISTER_SENSOR_PLUGIN(ContactPlugin)
@@ -15,16 +9,18 @@ GZ_REGISTER_SENSOR_PLUGIN(ContactPlugin)
 /////////////////////////////////////////////////
 ContactPlugin::ContactPlugin() : SensorPlugin()
 {
+
+    max_update_rate = 2.0;
+    updateRate = common::Time(0, common::Time::SecToNano((1.0/max_update_rate)));
+    prevUpdateTime = common::Time::GetWallTime();
+    
+    word_sep = ' ';
 }
 
 /////////////////////////////////////////////////
 ContactPlugin::~ContactPlugin()
 {
 }
-
-ros::Publisher chatter_pub;
-int argc;
-char **argv;
 
 /////////////////////////////////////////////////
 void ContactPlugin::Load(sensors::SensorPtr _sensor, sdf::ElementPtr /*_sdf*/)
@@ -48,9 +44,9 @@ void ContactPlugin::Load(sensors::SensorPtr _sensor, sdf::ElementPtr /*_sdf*/)
   this->parentSensor->SetActive(true);
 
 
-  ros::init(argc, argv, "talker");
+  ros::init(argc, argv, "contact_sensor");
   ros::NodeHandle n;
-  chatter_pub = n.advertise<std_msgs::String>("contact", 1000);
+  contactSensor_pub = n.advertise<std_msgs::String>("contact", 1000);
 
 
 }
@@ -58,6 +54,8 @@ void ContactPlugin::Load(sensors::SensorPtr _sensor, sdf::ElementPtr /*_sdf*/)
 /////////////////////////////////////////////////
 void ContactPlugin::OnUpdate()
 {
+  if (common::Time::GetWallTime() - prevUpdateTime < updateRate)
+    return;
   // Get all the contacts.
   msgs::Contacts contacts;
 
@@ -66,7 +64,10 @@ void ContactPlugin::OnUpdate()
     g0 = g1 = g2 = g3 = g4 = g5 = g6 = g7 = g8 = g9 = g10 = g11 = g12 = g13 = '0';
 
   contacts = this->parentSensor->GetContacts();
-  for (unsigned int i = 0; i < contacts.contact_size(); ++i)
+  int no_of_collisions = contacts.contact_size();
+  if ((common::Time::GetWallTime() - prevUpdateTime < updateRate) && no_of_collisions <= 0)
+    return;
+  for (unsigned int i = 0; i < no_of_collisions; ++i)
   {
     //std_msgs::String msg1;
 
@@ -156,28 +157,8 @@ void ContactPlugin::OnUpdate()
     {
       g13 = '1';
     }
-
-
-
-
-
-
-    /*for (unsigned int j = 0; j < contacts.contact(i).position_size(); ++j)
-    {
-      std::cout << j << "  Position:"
-                << contacts.contact(i).position(j).x() << " "
-                << contacts.contact(i).position(j).y() << " "
-                << contacts.contact(i).position(j).z() << "\n";
-      std::cout << "   Normal:"
-                << contacts.contact(i).normal(j).x() << " "
-                << contacts.contact(i).normal(j).y() << " "
-                << contacts.contact(i).normal(j).z() << "\n";
-      std::cout << "   Depth:" << contacts.contact(i).depth(j) << "\n";
-    }*/
   }
 
-
-  
     std_msgs::String msg;
     std::stringstream ss;
     ss << g0 << word_sep << g1 << word_sep << g2 << word_sep << g3 << word_sep << g4 << word_sep << g5 << word_sep << g6 << word_sep << g7 << word_sep << g8 << word_sep << g9 << word_sep << g10 << word_sep << g11 << word_sep << g12 << word_sep << g13;
@@ -185,7 +166,7 @@ void ContactPlugin::OnUpdate()
 
     //ROS_INFO("%s",msg.data.str());
 
-   
-    chatter_pub.publish(msg);
+    prevUpdateTime = common::Time::GetWallTime();
+    contactSensor_pub.publish(msg);
     ros::spinOnce();
 }
