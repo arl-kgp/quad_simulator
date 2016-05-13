@@ -61,8 +61,6 @@ void ContactPlugin::Load(sensors::SensorPtr _sensor, sdf::ElementPtr /*_sdf*/)
 /////////////////////////////////////////////////
 void ContactPlugin::OnUpdate()
 {
-  if (common::Time::GetWallTime() - prevUpdateTime < updateRate)
-    return;
   // Get all the contacts.
   msgs::Contacts contacts;
 
@@ -71,7 +69,10 @@ void ContactPlugin::OnUpdate()
     g0 = g1 = g2 = g3 = g4 = g5 = g6 = g7 = g8 = g9 = g10 = g11 = g12 = g13 = '0';
 
   contacts = this->parentSensor->GetContacts();
-  for (unsigned int i = 0; i < contacts.contact_size(); ++i)
+  int no_of_collisions = contacts.contact_size();
+  if ((common::Time::GetWallTime() - prevUpdateTime < updateRate) && no_of_collisions <= 0)
+    return;
+  for (unsigned int i = 0; i < no_of_collisions; ++i)
   {
     //std_msgs::String msg1;
 
