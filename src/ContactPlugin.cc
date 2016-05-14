@@ -69,101 +69,123 @@ void ContactPlugin::OnUpdate()
     return;
   for (unsigned int i = 0; i < no_of_collisions; ++i)
   {
-    //std_msgs::String msg1;
+    std::vector<std::string> objects;
+    std::vector<std::string> sensors;
+ 
+    std::string str_1 = contacts.contact(i).collision1();
+    std::stringstream ss_1(str_1);
+    std::vector<std::string> parts;
+    std::string token;
+ 
+    while (getline(ss_1,token, ':'))
+    {
+        parts.push_back(token);
+        //ROS_INFO("%s",token.c_str());
+    }
+    //ROS_INFO("%s , %s",parts[0].c_str(), parts[2].c_str());
+    objects.push_back(parts[0]);
+    sensors.push_back(parts[2]);
+    parts.clear();
+  
+    str_1 = contacts.contact(i).collision2();
+    std::stringstream ss_2(str_1);
+ 
+    while (getline(ss_1,token, ':'))
+    {
+        parts.push_back(token);
+        //ROS_INFO("%s",token.c_str());
+    }
+    objects.push_back(parts[0]);
+    sensors.push_back(parts[2]);
 
-    std::stringstream ss2;
-    ss2 << "Collision between[" << contacts.contact(i).collision1()
-              << "] and [" << contacts.contact(i).collision2() << "]\n";
+    
 
-    //std::display = ss2.str();
-    //ROS_INFO("%s",display);
+    for (int i = 0; i<2; i++)
+    {
+      if(objects[i] == "robot0" && g0 < 3)
+      {
+        if(sensors[i] == "base") g0 = '1';
+        if(sensors[i] == "top_sensor") g0 = '2';
+      }
+      if(objects[i] == "robot1" && g1 < 3)
+      {
+        if(sensors[i] == "base") g1 = '1';
+        if(sensors[i] == "top_sensor") g1 = '2';
+      }
+      if(objects[i] == "robot2" && g2 < 3)
+      {
+        if(sensors[i] == "base") g2 = '1';
+        if(sensors[i] == "top_sensor") g2 = '2';
+      }
+      if(objects[i] == "robot3" && g3 < 3)
+      {
+        if(sensors[i] == "base") g3 = '1';
+        if(sensors[i] == "top_sensor") g3 = '2';
+      }
+   
+      if(objects[i] == "robot4" && g4 < 3)
+      {
+        if(sensors[i] == "base") g4 = '1';
+        if(sensors[i] == "top_sensor") g4 = '2';
+      }
+   
+      if(objects[i] == "robot5" && g5 < 3)
+      {
+        if(sensors[i] == "base") g5 = '1';
+        if(sensors[i] == "top_sensor") g5 = '2';
+      }
+      if(objects[i] == "robot6" && g6 < 3)
+      {
+        if(sensors[i] == "base") g6 = '1';
+        if(sensors[i] == "top_sensor") g6 = '2';
+      }
+      if(objects[i] == "robot7" && g7 < 3)
+      {
+        if(sensors[i] == "base") g7 = '1';
+        if(sensors[i] == "top_sensor") g7 = '2';
+      }
+      if(objects[i] == "robot8" && g8 < 3)
+      {
+        if(sensors[i] == "base") g8 = '1';
+        if(sensors[i] == "top_sensor") g8 = '2';
+      }
+      if(objects[i] == "robot9" && g9 < 3)
+      {
+        if(sensors[i] == "base") g9 = '1';
+        if(sensors[i] == "top_sensor") g9 = '2';
+      }
+      if(objects[i] == "robot10" && g10 < 3)
+      {
+        if(sensors[i] == "base") g10 = '1';
+        if(sensors[i] == "top_sensor") g10 = '2';
+      }
+      if(objects[i] == "robot11" && g11 < 3)
+      {
+        if(sensors[i] == "base") g11 = '1';
+        if(sensors[i] == "top_sensor") g11 = '2';
+      }
+      if(objects[i] == "robot12" && g12 < 3)
+      {
+        if(sensors[i] == "base") g12 = '1';
+        if(sensors[i] == "top_sensor") g12 = '2';
+      }
+      if(objects[i] == "robot13" && g13< 3)
+      {
+        if(sensors[i] == "base") g13 = '1';
+        if(sensors[i] == "top_sensor") g13 = '2';
+      }
+      
 
-    std::string tmp = contacts.contact(i).collision1();
-    char str[32];
-    strncpy(str, tmp.c_str(), sizeof(str));
-    str[sizeof(str) - 1] = 0;
-    char * pch;
-    pch = strtok (str,":");
-    //printf ("%s\n",pch);
-    //ROS_INFO("%s",pch);
-    std::string object1 = pch;
-
-    tmp = contacts.contact(i).collision2();
-    char str1[32];
-    strncpy(str1, tmp.c_str(), sizeof(str));
-    str[sizeof(str) - 1] = 0;
-    char * pch1;
-    pch1 = strtok (str1,":");
-    std::string object2 = pch1;
-
-    //ROS_INFO("%s",pch);
-
-    //Collision detection
-    if(object1 == "robot0" || object2 == "robot0")
-    {
-      g0 = '1';
-    }
-    if(object1 == "robot1" || object2 == "robot1")
-    {
-      g1 = '1';
-    }
-    if(object1 == "robot2" || object2 == "robot2")
-    {
-      g2 = '1';
-    }
-    if(object1 == "robot3" || object2 == "robot3")
-    {
-      g3 = '1';
-    }
-
-    if(object1 == "robot4" || object2 == "robot4")
-    {
-      g4 = '1';
-    }
-
-    if(object1 == "robot5" || object2 == "robot5")
-    {
-      g5 = '1';
-    }
-    if(object1 == "robot6" || object2 == "robot6")
-    {
-      g6 = '1';
-    }
-    if(object1 == "robot7" || object2 == "robot7")
-    {
-      g7 = '1';
-    }
-    if(object1 == "robot8" || object2 == "robot8")
-    {
-      g8 = '1';
-    }
-    if(object1 == "robot9" || object2 == "robot9")
-    {
-      g9 = '1';
-    }
-    if(object1 == "robot10" || object2 == "robot10")
-    {
-      g10 = '1';
-    }
-    if(object1 == "robot11" || object2 == "robot11")
-    {
-      g11 = '1';
-    }
-    if(object1 == "robot12" || object2 == "robot12")
-    {
-      g12 = '1';
-    }
-    if(object1 == "robot13" || object2 == "robot13")
-    {
-      g13 = '1';
     }
   }
-
+ 
+  
+   
     std_msgs::String msg;
     std::stringstream ss;
     ss << g0 << word_sep << g1 << word_sep << g2 << word_sep << g3 << word_sep << g4 << word_sep << g5 << word_sep << g6 << word_sep << g7 << word_sep << g8 << word_sep << g9 << word_sep << g10 << word_sep << g11 << word_sep << g12 << word_sep << g13;
     msg.data = ss.str();
-
+ 
     //ROS_INFO("%s",msg.data.str());
 
     prevUpdateTime = common::Time::GetWallTime();
