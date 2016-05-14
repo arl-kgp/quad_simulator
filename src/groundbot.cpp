@@ -41,6 +41,7 @@ double time_begin_4 = 0;
 double z_target_4 = 0;
 char prev_4 = '0';
 bool start_turn_4 = false;
+bool quad_top_turn_4 = false;
 
 float vx_5 = v_max;
 float az_5 = 0.0;
@@ -48,6 +49,7 @@ double time_begin_5 = 0;
 double z_target_5 = 0.683;
 char prev_5 = '0';
 bool start_turn_5 = false;
+bool quad_top_turn_5 = false;
 
 float vx_6 = v_max;
 float az_6 = 0.0;
@@ -55,6 +57,7 @@ double time_begin_6 = 0;
 double z_target_6 = 1.234;
 char prev_6 = '0';
 bool start_turn_6 = false;
+bool quad_top_turn_6 = false;
 
 float vx_7 = v_max;
 float az_7 = 0.0;
@@ -62,6 +65,7 @@ double time_begin_7 = 0;
 double z_target_7 = 1.907;
 char prev_7 = '0';
 bool start_turn_7 = false;
+bool quad_top_turn_7 = false;
 
 float vx_8 = v_max;
 float az_8 = 0.0;
@@ -69,6 +73,7 @@ double time_begin_8 = 0;
 double z_target_8 = 2.458;
 char prev_8 = '0';
 bool start_turn_8 = false;
+bool quad_top_turn_8 = false;
 
 float vx_9 = v_max;
 float az_9 = 0.0;
@@ -76,6 +81,7 @@ double time_begin_9 = 0;
 double z_target_9 = 0;
 char prev_9 = '0';
 bool start_turn_9 = false;
+bool quad_top_turn_9 = false;
 
 float vx_10 = v_max;
 float az_10 = 0.0;
@@ -83,6 +89,7 @@ double time_begin_10 = 0;
 double z_target_10 = -2.458;
 char prev_10 = '0';
 bool start_turn_10 = false;
+bool quad_top_turn_10 = false;
 
 float vx_11 = v_max;
 float az_11 = 0.0;
@@ -90,6 +97,7 @@ double time_begin_11 = 0;
 double z_target_11 = -1.907;
 char prev_11 = '0';
 bool start_turn_11 = false;
+bool quad_top_turn_11 = false;
 
 float vx_12 = v_max;
 float az_12 = 0.0;
@@ -97,6 +105,7 @@ double time_begin_12 = 0;
 double z_target_12 = -1.234;
 char prev_12 = '0';
 bool start_turn_12 = false;
+bool quad_top_turn_12 = false;
 
 float vx_13 = v_max;
 float az_13 = 0.0;
@@ -104,6 +113,7 @@ double time_begin_13 = 0;
 double z_target_13 = -0.683;
 char prev_13 = '0';
 bool start_turn_13 = false;
+bool quad_top_turn_13 = false;
 
 
 class Controller
