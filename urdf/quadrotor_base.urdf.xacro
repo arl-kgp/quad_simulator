@@ -53,7 +53,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://quad_simulator/meshes/base_combined.STL" />
+          filename="package://quad_simulator/meshes/albatross_base.dae" />
       </geometry>
       <material
         name="">
