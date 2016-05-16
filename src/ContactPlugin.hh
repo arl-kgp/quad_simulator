@@ -41,8 +41,8 @@ namespace gazebo
     /// updated signal and the OnUpdate callback.
     private: event::ConnectionPtr updateConnection;
 
-	ros::Publisher contactSensor_pub;
-	  
+    ros::Publisher contactSensor_pub;
+      
     float max_update_rate;
     common::Time updateRate;
     common::Time prevUpdateTime;
