@@ -4,12 +4,13 @@
 #include "std_msgs/String.h"
 #include "nav_msgs/Odometry.h"
 #include <math.h>
+#include <string.h>
 
 //Parameters
 float v_max = 0.6;
 float a_max = 0.8;
 float a_max_p = 0.06;
-int wait_period = 20;
+double wait_period = 20;
 
 //Common
 bool bool_turn = false;
@@ -41,6 +42,8 @@ double time_begin_4 = 0;
 double z_target_4 = 0;
 char prev_4 = '0';
 bool start_turn_4 = false;
+bool quad_top_turn_4 = false;
+bool is_turning_4 = false;
 
 float vx_5 = v_max;
 float az_5 = 0.0;
@@ -48,6 +51,8 @@ double time_begin_5 = 0;
 double z_target_5 = 0.683;
 char prev_5 = '0';
 bool start_turn_5 = false;
+bool quad_top_turn_5 = false;
+bool is_turning_5 = false;
 
 float vx_6 = v_max;
 float az_6 = 0.0;
@@ -55,6 +60,8 @@ double time_begin_6 = 0;
 double z_target_6 = 1.234;
 char prev_6 = '0';
 bool start_turn_6 = false;
+bool quad_top_turn_6 = false;
+bool is_turning_6 = false;
 
 float vx_7 = v_max;
 float az_7 = 0.0;
@@ -62,6 +69,8 @@ double time_begin_7 = 0;
 double z_target_7 = 1.907;
 char prev_7 = '0';
 bool start_turn_7 = false;
+bool quad_top_turn_7 = false;
+bool is_turning_7 = false;
 
 float vx_8 = v_max;
 float az_8 = 0.0;
@@ -69,6 +78,8 @@ double time_begin_8 = 0;
 double z_target_8 = 2.458;
 char prev_8 = '0';
 bool start_turn_8 = false;
+bool quad_top_turn_8 = false;
+bool is_turning_8 = false;
 
 float vx_9 = v_max;
 float az_9 = 0.0;
@@ -76,6 +87,8 @@ double time_begin_9 = 0;
 double z_target_9 = 0;
 char prev_9 = '0';
 bool start_turn_9 = false;
+bool quad_top_turn_9 = false;
+bool is_turning_9 = false;
 
 float vx_10 = v_max;
 float az_10 = 0.0;
@@ -83,6 +96,8 @@ double time_begin_10 = 0;
 double z_target_10 = -2.458;
 char prev_10 = '0';
 bool start_turn_10 = false;
+bool quad_top_turn_10 = false;
+bool is_turning_10 = false;
 
 float vx_11 = v_max;
 float az_11 = 0.0;
@@ -90,6 +105,8 @@ double time_begin_11 = 0;
 double z_target_11 = -1.907;
 char prev_11 = '0';
 bool start_turn_11 = false;
+bool quad_top_turn_11 = false;
+bool is_turning_11 = false;
 
 float vx_12 = v_max;
 float az_12 = 0.0;
@@ -97,6 +114,8 @@ double time_begin_12 = 0;
 double z_target_12 = -1.234;
 char prev_12 = '0';
 bool start_turn_12 = false;
+bool quad_top_turn_12 = false;
+bool is_turning_12 = false;
 
 float vx_13 = v_max;
 float az_13 = 0.0;
@@ -104,7 +123,8 @@ double time_begin_13 = 0;
 double z_target_13 = -0.683;
 char prev_13 = '0';
 bool start_turn_13 = false;
-
+bool quad_top_turn_13 = false;
+bool is_turning_13 = false;
 
 class Controller
 {
@@ -434,102 +454,152 @@ public:
     //4th
     pch = strtok (NULL, " ");
     data = pch;    
-    if(data == "1" && prev_4 == '0')
+    if(data == "1" && prev_4 != '1')
     {     
       start_turn_4 = true;
       prev_4 = '1'; 
     }
-    else if(data == "0" && prev_4 == '1')prev_4 = '0'; 
+    else if(data == "2" && prev_4 != '2')
+    {     
+      quad_top_turn_4 = true;
+      prev_4 = '2'; 
+    }
+    else if(data == "0" && prev_4 != '0')prev_4 = '0'; 
 
     //5th
     pch = strtok (NULL, " ");
     data = pch;    
-    if(data == "1" && prev_5 == '0')
+    if(data == "1" && prev_5 != '1')
     {
       start_turn_5 = true;
       prev_5 = '1';     
     }
-    else if(data == "0" && prev_5 == '1')prev_5 = '0';
+    else if(data == "2" && prev_5 != '2')
+    {     
+      quad_top_turn_5 = true;
+      prev_5 = '2'; 
+    }
+    else if(data == "0" && prev_5 != '0')prev_5 = '0';
 
     //6th
     pch = strtok (NULL, " ");
     data = pch;    
-    if(data == "1" && prev_6 == '0')
+    if(data == "1" && prev_6 != '1')
     {
       start_turn_6 = true;
       prev_6 = '1';     
     }
-    else if(data == "0" && prev_6 == '1')prev_6 = '0';
+    else if(data == "2" && prev_6 != '2')
+    {     
+      quad_top_turn_6 = true;
+      prev_6 = '2'; 
+    }
+    else if(data == "0" && prev_6 != '0')prev_6 = '0';
 
     //7th
     pch = strtok (NULL, " ");
     data = pch;    
-    if(data == "1" && prev_7 == '0')
+    if(data == "1" && prev_7 != '1')
     {
       start_turn_7 = true;
       prev_7 = '1';     
     }
-    else if(data == "0" && prev_7 == '1')prev_7 = '0';
+    else if(data == "2" && prev_7 != '2')
+    {     
+      quad_top_turn_7 = true;
+      prev_7 = '2'; 
+    }
+    else if(data == "0" && prev_7 != '0')prev_7 = '0';
 
     //8th
     pch = strtok (NULL, " ");
     data = pch;    
-    if(data == "1" && prev_8 == '0')
+    if(data == "1" && prev_8 != '1')
     {
       start_turn_8 = true;
       prev_8 = '1';     
     }
-    else if(data == "0" && prev_8 == '1')prev_8 = '0';
+    else if(data == "2" && prev_8 != '2')
+    {     
+      quad_top_turn_8 = true;
+      prev_8 = '2'; 
+    }
+    else if(data == "0" && prev_8 != '0')prev_8 = '0';
 
     //9th
     pch = strtok (NULL, " ");
     data = pch;    
-    if(data == "1" && prev_9 == '0')
+    if(data == "1" && prev_9 != '1')
     {
       start_turn_9 = true;
       prev_9 = '1';     
     }
-    else if(data == "0" && prev_9 == '1')prev_9 = '0';
+    else if(data == "2" && prev_9 != '2')
+    {     
+      quad_top_turn_9 = true;
+      prev_9 = '2'; 
+    }
+    else if(data == "0" && prev_9 != '0')prev_9 = '0';
 
     //10th
     pch = strtok (NULL, " ");
     data = pch;    
-    if(data == "1" && prev_10 == '0')
+    if(data == "1" && prev_10 != '1')
     {
       start_turn_10 = true;
       prev_10 = '1';      
     }
-    else if(data == "0" && prev_10 == '1')prev_10 = '0';
+    else if(data == "2" && prev_10 != '2')
+    {     
+      quad_top_turn_10 = true;
+      prev_10 = '2'; 
+    }
+    else if(data == "0" && prev_10 != '0')prev_10 = '0';
 
     //11th
     pch = strtok (NULL, " ");
     data = pch;    
-    if(data == "1" && prev_11 == '0')
+    if(data == "1" && prev_11 != '1')
     {
       start_turn_11 = true;
       prev_11 = '1';      
     }
-    else if(data == "0" && prev_11 == '1')prev_11 = '0';
+    else if(data == "2" && prev_11 != '2')
+    {     
+      quad_top_turn_11 = true;
+      prev_11 = '2'; 
+    }
+    else if(data == "0" && prev_11 != '0')prev_11 = '0';
 
     //12th
     pch = strtok (NULL, " ");
     data = pch;    
-    if(data == "1" && prev_12 == '0')
+    if(data == "1" && prev_12 != '1')
     {
       start_turn_12 = true;
       prev_12 = '1';      
     }
-    else if(data == "0" && prev_12 == '1')prev_12 = '0';
+    else if(data == "2" && prev_12 != '2')
+    {     
+      quad_top_turn_12 = true;
+      prev_12 = '2'; 
+    }
+    else if(data == "0" && prev_12 != '0')prev_12 = '0';
 
     //13th
     pch = strtok (NULL, " ");
     data = pch;    
-    if(data == "1" && prev_13 == '0')
+    if(data == "1" && prev_13 != '1')
     {
       start_turn_13 = true;
       prev_13 = '1';      
     }
-    else if(data == "0" && prev_13 == '1')prev_13 = '0';
+    else if(data == "2" && prev_13 != '2')
+    {     
+      quad_top_turn_13 = true;
+      prev_13 = '2'; 
+    }
+    else if(data == "0" && prev_13 != '0')prev_13 = '0';
   }
   
   
@@ -537,10 +607,12 @@ public:
   void odomCb(const nav_msgs::Odometry::ConstPtr& msg)
   {
     float *vx;
-  double *z_target; 
-  float *az;
-  double *time_begin;
-  bool *start_turn;
+    double *z_target; 
+    float *az;
+    double *time_begin;
+    bool *start_turn;
+    bool *quad_top_turn;
+    bool *is_turning;
 
     Quaternionm myq;
     double yaw = 0;
@@ -551,7 +623,7 @@ public:
     myq.z = msg->pose.pose.orientation.z;
     myq.w = msg->pose.pose.orientation.w;  
     GetEulerAngles(myq, yaw, pitch, roll);
-    double time_present = ros::Time::now().toSec();  
+      
 
     if(msg->header.frame_id == "robot4/odom")
     {
@@ -560,6 +632,8 @@ public:
       az = &az_4;
       time_begin = &time_begin_4;
       start_turn = &start_turn_4;
+      quad_top_turn = &quad_top_turn_4;
+      is_turning = &is_turning_4;
     }
     else if(msg->header.frame_id == "robot5/odom")
     {
@@ -568,6 +642,8 @@ public:
       az = &az_5;
       time_begin = &time_begin_5;
       start_turn = &start_turn_5;
+      quad_top_turn = &quad_top_turn_5;
+      is_turning = &is_turning_5;
     }
     else if(msg->header.frame_id == "robot6/odom")
     {
@@ -576,6 +652,8 @@ public:
       az = &az_6;
       time_begin = &time_begin_6;
       start_turn = &start_turn_6;
+      quad_top_turn = &quad_top_turn_6;
+      is_turning = &is_turning_6;
     }
     else if(msg->header.frame_id == "robot7/odom")
     {
@@ -584,6 +662,8 @@ public:
       az = &az_7;
       time_begin = &time_begin_7;
       start_turn = &start_turn_7;
+      quad_top_turn = &quad_top_turn_7;
+      is_turning = &is_turning_7;
     }
     else if(msg->header.frame_id == "robot8/odom")
     {
@@ -592,6 +672,8 @@ public:
       az = &az_8;
       time_begin = &time_begin_8;
       start_turn = &start_turn_8;
+      quad_top_turn = &quad_top_turn_8;
+      is_turning = &is_turning_8;
     }
     else if(msg->header.frame_id == "robot9/odom")
     {
@@ -600,6 +682,8 @@ public:
       az = &az_9;
       time_begin = &time_begin_9;
       start_turn = &start_turn_9;
+      quad_top_turn = &quad_top_turn_9;
+      is_turning = &is_turning_9;
     }
     else if(msg->header.frame_id == "robot10/odom")
     {
@@ -608,6 +692,8 @@ public:
       az = &az_10;
       time_begin = &time_begin_10;
       start_turn = &start_turn_10;
+      quad_top_turn = &quad_top_turn_10;
+      is_turning = &is_turning_10;
     }
     else if(msg->header.frame_id == "robot11/odom")
     {
@@ -616,6 +702,8 @@ public:
       az = &az_11;
       time_begin = &time_begin_11;
       start_turn = &start_turn_11;
+      quad_top_turn = &quad_top_turn_11;
+      is_turning = &is_turning_11;
     }
     else if(msg->header.frame_id == "robot12/odom")
     {
@@ -624,6 +712,8 @@ public:
       az = &az_12;
       time_begin = &time_begin_12;
       start_turn = &start_turn_12;
+      quad_top_turn = &quad_top_turn_12;
+      is_turning = &is_turning_12;
     }
     else if(msg->header.frame_id == "robot13/odom")
     {
@@ -632,28 +722,41 @@ public:
       az = &az_13;
       time_begin = &time_begin_13;
       start_turn = &start_turn_13;
+      quad_top_turn = &quad_top_turn_13;
+      is_turning = &is_turning_13;
     }
+
+    std::string Caller = "";
       
           
-      double diff = *z_target - yaw;
-      diff = fabs(diff);
-      //ROS_INFO("time_present: %lf, time_begin: %lf, roll: %lf",time_present,time_begin,diff);
-      if(diff < 0.13490)
-      {       
-        *vx = v_max;
-        *az = 0;
-      }
-      else
-      {
-        *time_begin = time_present;
-        *vx = 0;
-        *az = a_max;
-      }
+    double diff = *z_target - yaw;
+    diff = fabs(diff);
+    double time_present = ros::Time::now().toSec();
+    //ROS_INFO("time_present: %lf, time_begin: %lf, roll: %lf",time_present,time_begin,diff);
+    if(diff > 0.13490 && *is_turning == true)
+    {
+      *time_begin = time_present;
+      *vx = 0;
+      *az = a_max;    
+    }
+    else if(diff < 0.13490 && *is_turning == true)
+    {
+      *is_turning = false;
+      *vx = v_max;
+      *az = 0;
+    }
 
-    if(time_present - *time_begin > wait_period)
+    if(!*is_turning)
+    {
+      *vx = v_max;
+      *az = 0;
+    }
+
+    if((time_present - *time_begin) > wait_period)
     {
       angle_diff = 45;    
-    calculate_turn = true;    
+      calculate_turn = true;
+      Caller = "time"; 
     }
 
     if(*start_turn == true)
@@ -661,25 +764,36 @@ public:
       angle_diff = 180;
       calculate_turn = true;
       *start_turn = false;
+      Caller = "base";
+    }
+
+    if(*quad_top_turn == true)
+    {
+      angle_diff = 45;
+      calculate_turn = true;
+      *quad_top_turn = false;
+      Caller = "top";
     }
 
 
     if(calculate_turn)
     {
+      *is_turning = true;    
+      
       double turn_angle = (angle_diff*3.141592)/180;
-    *z_target = yaw - turn_angle;
-    if(*z_target > 3.14)
-    {
-      *z_target = 2*3.14 - *z_target;
-    }
-    else if(*z_target < -3.14)
-    {
-      *z_target = 2*3.14 + *z_target;
-    }
-    //ROS_INFO("target: %lf",z_target);
-    *time_begin = time_present;           
-    calculate_turn = false;
-    *vx = -v_max*5;
+      *z_target = yaw - turn_angle;
+      if(*z_target > 3.14)
+      {
+        *z_target = 2*3.14 - *z_target;
+      }
+      else if(*z_target < -3.14)
+      {
+        *z_target = 2*3.14 + *z_target;
+      }
+      //ROS_INFO("target: %lf",z_target);
+      *time_begin = time_present;           
+      calculate_turn = false;
+      *vx = -v_max*5;
     }
     publish_velocity(msg->header.frame_id);
   }
