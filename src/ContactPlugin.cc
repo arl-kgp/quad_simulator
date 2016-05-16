@@ -11,7 +11,7 @@ ContactPlugin::ContactPlugin() : SensorPlugin()
 {
 
     max_update_rate = 2.0;
-    updateRate = common::Time(0, common::Time::SecToNano((1.0/max_update_rate)));
+    updateRate = common::Time(0, common::Time::SecToNano(1));
     prevUpdateTime = common::Time::GetWallTime();
     
     word_sep = ' ';
@@ -54,8 +54,8 @@ void ContactPlugin::Load(sensors::SensorPtr _sensor, sdf::ElementPtr /*_sdf*/)
 /////////////////////////////////////////////////
 void ContactPlugin::OnUpdate()
 {
-  if (common::Time::GetWallTime() - prevUpdateTime < updateRate)
-    return;
+  //if (common::Time::GetWallTime() - prevUpdateTime < updateRate)
+  //  return;
   // Get all the contacts.
   msgs::Contacts contacts;
 
@@ -65,117 +65,110 @@ void ContactPlugin::OnUpdate()
 
   contacts = this->parentSensor->GetContacts();
   int no_of_collisions = contacts.contact_size();
+
   if ((common::Time::GetWallTime() - prevUpdateTime < updateRate) && no_of_collisions <= 0)
     return;
-  for (unsigned int i = 0; i < no_of_collisions; ++i)
+
+  for (unsigned int i = 0; i < no_of_collisions; i++)
   {
-    std::vector<std::string> objects;
-    std::vector<std::string> sensors;
- 
-    std::string str_1 = contacts.contact(i).collision1();
-    std::stringstream ss_1(str_1);
+    std::vector<std::vector<std::string> > collisions; 
+    std::vector<std::string> input_string;
     std::vector<std::string> parts;
-    std::string token;
- 
-    while (getline(ss_1,token, ':'))
-    {
-        parts.push_back(token);
-        //ROS_INFO("%s",token.c_str());
-    }
-    //ROS_INFO("%s , %s",parts[0].c_str(), parts[2].c_str());
-    objects.push_back(parts[0]);
-    sensors.push_back(parts[2]);
-    parts.clear();
-  
-    str_1 = contacts.contact(i).collision2();
-    std::stringstream ss_2(str_1);
- 
-    while (getline(ss_1,token, ':'))
-    {
-        parts.push_back(token);
-        //ROS_INFO("%s",token.c_str());
-    }
-    objects.push_back(parts[0]);
-    sensors.push_back(parts[2]);
 
+    input_string.push_back(contacts.contact(i).collision1());
+    input_string.push_back(contacts.contact(i).collision2());
     
+    std::string delimiter = "::";
 
-    for (int i = 0; i<2; i++)
+    size_t pos = 0;
+    std::string token;
+
+    for (unsigned int j = 0; j<2; j++)
     {
-      if(objects[i] == "robot0" && g0 < 3)
-      {
-        if(sensors[i] == "base") g0 = '1';
-        if(sensors[i] == "top_sensor") g0 = '2';
+      pos = 0;
+      while ((pos = input_string[j].find(delimiter)) != std::string::npos) {
+        token = input_string[j].substr(0, pos);
+        parts.push_back(token);
+        input_string[j].erase(0, pos + delimiter.length());
       }
-      if(objects[i] == "robot1" && g1 < 3)
+      parts.push_back(input_string[j]);
+      collisions.push_back(parts);
+      parts.clear();
+    }
+    
+    
+    for (int j = 0;  j<2; j++)
+    {
+      if(collisions[j][0] == "robot0")
       {
-        if(sensors[i] == "base") g1 = '1';
-        if(sensors[i] == "top_sensor") g1 = '2';
+        if(collisions[j][2] == "base_collision") g0 = '1';
+        if(collisions[j][2] == "top_collision") g0 = '2';
       }
-      if(objects[i] == "robot2" && g2 < 3)
+      else if(collisions[j][0] == "robot1")
       {
-        if(sensors[i] == "base") g2 = '1';
-        if(sensors[i] == "top_sensor") g2 = '2';
+        if(collisions[j][2] == "base_collision") g1 = '1';
+        if(collisions[j][2] == "top_collision") g1 = '2';
       }
-      if(objects[i] == "robot3" && g3 < 3)
+      else if(collisions[j][0] == "robot2")
       {
-        if(sensors[i] == "base") g3 = '1';
-        if(sensors[i] == "top_sensor") g3 = '2';
+        if(collisions[j][2] == "base_collision") g2 = '1';
+        if(collisions[j][2] == "top_collision") g2 = '2';
       }
-   
-      if(objects[i] == "robot4" && g4 < 3)
+      else if(collisions[j][0] == "robot3")
       {
-        if(sensors[i] == "base") g4 = '1';
-        if(sensors[i] == "top_sensor") g4 = '2';
+        if(collisions[j][2] == "base_collision") g3 = '1';
+        if(collisions[j][2] == "top_collision") g3 = '2';
       }
-   
-      if(objects[i] == "robot5" && g5 < 3)
+      else if(collisions[j][0] == "robot4")
       {
-        if(sensors[i] == "base") g5 = '1';
-        if(sensors[i] == "top_sensor") g5 = '2';
+        if(collisions[j][2] == "base_collision") g4 = '1';
+        if(collisions[j][2] == "top_collision") g4 = '2';
       }
-      if(objects[i] == "robot6" && g6 < 3)
+      else if(collisions[j][0] == "robot5")
       {
-        if(sensors[i] == "base") g6 = '1';
-        if(sensors[i] == "top_sensor") g6 = '2';
+        if(collisions[j][2] == "base_collision") g5 = '1';
+        if(collisions[j][2] == "top_collision") g5 = '2';
       }
-      if(objects[i] == "robot7" && g7 < 3)
+      else if(collisions[j][0] == "robot6")
       {
-        if(sensors[i] == "base") g7 = '1';
-        if(sensors[i] == "top_sensor") g7 = '2';
-      }
-      if(objects[i] == "robot8" && g8 < 3)
+        if(collisions[j][2] == "base_collision") g6 = '1';
+        if(collisions[j][2] == "top_collision") g6 = '2';
+      } 
+      else if(collisions[j][0] == "robot7")
       {
-        if(sensors[i] == "base") g8 = '1';
-        if(sensors[i] == "top_sensor") g8 = '2';
+        if(collisions[j][2] == "base_collision") g7 = '1';
+        if(collisions[j][2] == "top_collision") g7 = '2';
       }
-      if(objects[i] == "robot9" && g9 < 3)
+      else if(collisions[j][0] == "robot8")
       {
-        if(sensors[i] == "base") g9 = '1';
-        if(sensors[i] == "top_sensor") g9 = '2';
+        if(collisions[j][2] == "base_collision") g8 = '1';
+        if(collisions[j][2] == "top_collision") g8 = '2';
       }
-      if(objects[i] == "robot10" && g10 < 3)
+      else if(collisions[j][0] == "robot9")
       {
-        if(sensors[i] == "base") g10 = '1';
-        if(sensors[i] == "top_sensor") g10 = '2';
+        if(collisions[j][2] == "base_collision") g9 = '1';
+        if(collisions[j][2] == "top_collision") g9 = '2';
       }
-      if(objects[i] == "robot11" && g11 < 3)
+      else if(collisions[j][0] == "robot10")
       {
-        if(sensors[i] == "base") g11 = '1';
-        if(sensors[i] == "top_sensor") g11 = '2';
+        if(collisions[j][2] == "base_collision") g10 = '1';
+        if(collisions[j][2] == "top_collision") g10 = '2';
       }
-      if(objects[i] == "robot12" && g12 < 3)
+      else if(collisions[j][0] == "robot11")
       {
-        if(sensors[i] == "base") g12 = '1';
-        if(sensors[i] == "top_sensor") g12 = '2';
+        if(collisions[j][2] == "base_collision") g11 = '1';
+        if(collisions[j][2] == "top_collision") g11 = '2';
       }
-      if(objects[i] == "robot13" && g13< 3)
+      else if(collisions[j][0] == "robot12")
       {
-        if(sensors[i] == "base") g13 = '1';
-        if(sensors[i] == "top_sensor") g13 = '2';
+        if(collisions[j][2] == "base_collision") g12 = '1';
+        if(collisions[j][2] == "top_collision") g12 = '2';
       }
-      
-
+      else if(collisions[j][0] == "robot13")
+      {
+        if(collisions[j][2] == "base_collision") g13 = '1';
+        if(collisions[j][2] == "top_collision") g13 = '2';
+      }
     }
   }
  

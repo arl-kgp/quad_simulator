@@ -10,6 +10,9 @@
 #include <string.h>
 #include <stdio.h>
 #include <sstream>
+#include <iostream>
+#include <vector>
+
 
 
 namespace gazebo
