@@ -1,240 +1,187 @@
 #include "ContactPlugin.hh"
-#include "ros/ros.h"
-#include "std_msgs/String.h"
-#include <sensors/sensors.hh>
-#include <string.h>
-#include <stdio.h>
- 
-#include <sstream>
- 
-char word_sep = ' ';
- 
+
+int argc;
+char **argv;
+
 using namespace gazebo;
 GZ_REGISTER_SENSOR_PLUGIN(ContactPlugin)
- 
+
 /////////////////////////////////////////////////
 ContactPlugin::ContactPlugin() : SensorPlugin()
 {
+
+    max_update_rate = 2.0;
+    updateRate = common::Time(0, common::Time::SecToNano(1));
+    prevUpdateTime = common::Time::GetWallTime();
+    
+    word_sep = ' ';
 }
- 
+
 /////////////////////////////////////////////////
 ContactPlugin::~ContactPlugin()
 {
 }
- 
-ros::Publisher chatter_pub;
-int argc;
-char **argv;
- 
+
 /////////////////////////////////////////////////
 void ContactPlugin::Load(sensors::SensorPtr _sensor, sdf::ElementPtr /*_sdf*/)
 {
   // Get the parent sensor.
   this->parentSensor =
     boost::dynamic_pointer_cast<sensors::ContactSensor>(_sensor);
- 
+
   // Make sure the parent sensor is valid.
   if (!this->parentSensor)
   {
-    gzerr << "ContactPlugin requires a ContactSensor.n";
+    gzerr << "ContactPlugin requires a ContactSensor.\n";
     return;
   }
- 
+
   // Connect to the sensor update event.
   this->updateConnection = this->parentSensor->ConnectUpdated(
       boost::bind(&ContactPlugin::OnUpdate, this));
- 
+
   // Make sure the parent sensor is active.
   this->parentSensor->SetActive(true);
- 
- 
-  ros::init(argc, argv, "talker");
+
+
+  ros::init(argc, argv, "contact_sensor");
   ros::NodeHandle n;
-  chatter_pub = n.advertise<std_msgs::String>("contact", 1000);
- 
- 
+  contactSensor_pub = n.advertise<std_msgs::String>("contact", 1000);
+
+
 }
- 
+
 /////////////////////////////////////////////////
 void ContactPlugin::OnUpdate()
 {
+  //if (common::Time::GetWallTime() - prevUpdateTime < updateRate)
+  //  return;
   // Get all the contacts.
   msgs::Contacts contacts;
- 
-   
-    int g0,g1,g2,g3,g4,g5,g6,g7,g8,g9,g10,g11,g12,g13;
-    g0 = g1 = g2 = g3 = g4 = g5 = g6 = g7 = g8 = g9 = g10 = g11 = g12 = g13 = 0;
 
-    char c_g0,c_g1,c_g2,c_g3,c_g4,c_g5,c_g6,c_g7,c_g8,c_g9,c_g10,c_g11,c_g12,c_g13;
- 
+  
+    char g0,g1,g2,g3,g4,g5,g6,g7,g8,g9,g10,g11,g12,g13;
+    g0 = g1 = g2 = g3 = g4 = g5 = g6 = g7 = g8 = g9 = g10 = g11 = g12 = g13 = '0';
+
   contacts = this->parentSensor->GetContacts();
-  for (unsigned int i = 0; i < contacts.contact_size(); ++i)
+  int no_of_collisions = contacts.contact_size();
+
+  if ((common::Time::GetWallTime() - prevUpdateTime < updateRate) && no_of_collisions <= 0)
+    return;
+
+  for (unsigned int i = 0; i < no_of_collisions; i++)
   {
-    //std_msgs::String msg1;
- 
-    //std::stringstream ss2;
-    //ss2 << "Collision between[" << contacts.contact(i).collision1()<< "] and [" << contacts.contact(i).collision2() << "]n";
- 
-    //std::String display = ss2.str();
-    //ROS_INFO("%s",ss2.str().c_str());
- 
-    /*std::string tmp = contacts.contact(i).collision1();
-    char str[32];
-    strncpy(str, tmp.c_str(), sizeof(str));
-    str[sizeof(str) - 1] = 0;
-    char * pch;
-    pch = strtok (str,":");
-    //printf ("%sn",pch);
-    //ROS_INFO("%s",pch);
-    std::string object1 = pch;
- 
-    tmp = contacts.contact(i).collision2();
-    char str1[32];
-    strncpy(str1, tmp.c_str(), sizeof(str));
-    str[sizeof(str) - 1] = 0;
-    char * pch1;
-    pch1 = strtok (str1,":");
-    std::string object2 = pch1;*/
-    //std::string object1,object2,sensor1,sensor2;
-
-    std::vector<std::string> objects;
-    std::vector<std::string> sensors;
- 
-    std::string str_1 = contacts.contact(i).collision1();
-    std::stringstream ss_1(str_1);
+    std::vector<std::vector<std::string> > collisions; 
+    std::vector<std::string> input_string;
     std::vector<std::string> parts;
-    std::string token;
- 
-    while (getline(ss_1,token, ':'))
-    {
-        parts.push_back(token);
-        //ROS_INFO("%s",token.c_str());
-    }
-    //ROS_INFO("%s , %s",parts[0].c_str(), parts[2].c_str());
-    objects.push_back(parts[0]);
-    sensors.push_back(parts[2]);
-    parts.clear();
- 	
-    str_1 = contacts.contact(i).collision2();
-    std::stringstream ss_2(str_1);
- 
-    while (getline(ss_1,token, ':'))
-    {
-        parts.push_back(token);
-        //ROS_INFO("%s",token.c_str());
-    }
-    objects.push_back(parts[0]);
-    sensors.push_back(parts[2]);
 
+    input_string.push_back(contacts.contact(i).collision1());
+    input_string.push_back(contacts.contact(i).collision2());
     
+    std::string delimiter = "::";
 
-    for (int i = 0; i<2; i++)
-    {
-      if(objects[i] == "robot0" && g0 < 3)
-      {
-        if(sensors[i] == "base")g0 += 1;
-        if(sensors[i] == "top_sensor")g0 += 2;
-      }
-      if(objects[i] == "robot1" && g1 < 3)
-      {
-        if(sensors[i] == "base")g1 += 1;
-        if(sensors[i] == "top_sensor")g1 += 2;
-      }
-      if(objects[i] == "robot2" && g2 < 3)
-      {
-        if(sensors[i] == "base")g2 += 1;
-        if(sensors[i] == "top_sensor")g2 += 2;
-      }
-      if(objects[i] == "robot3" && g3 < 3)
-      {
-        if(sensors[i] == "base")g3 += 1;
-        if(sensors[i] == "top_sensor")g3 += 2;
-      }
-   
-      if(objects[i] == "robot4" && g4 < 3)
-      {
-        if(sensors[i] == "base")g4 += 1;
-        if(sensors[i] == "top_sensor")g4 += 2;
-      }
-   
-      if(objects[i] == "robot5" && g5 < 3)
-      {
-        if(sensors[i] == "base")g5 += 1;
-        if(sensors[i] == "top_sensor")g5 += 2;
-      }
-      if(objects[i] == "robot6" && g6 < 3)
-      {
-        if(sensors[i] == "base")g6 += 1;
-        if(sensors[i] == "top_sensor")g6 += 2;
-      }
-      if(objects[i] == "robot7" && g7 < 3)
-      {
-        if(sensors[i] == "base")g7 += 1;
-        if(sensors[i] == "top_sensor")g7 += 2;
-      }
-      if(objects[i] == "robot8" && g8 < 3)
-      {
-        if(sensors[i] == "base")g8 += 1;
-        if(sensors[i] == "top_sensor")g8 += 2;
-      }
-      if(objects[i] == "robot9" && g9 < 3)
-      {
-        if(sensors[i] == "base")g9 += 1;
-        if(sensors[i] == "top_sensor")g9 += 2;
-      }
-      if(objects[i] == "robot10" && g10 < 3)
-      {
-        if(sensors[i] == "base")g10 += 1;
-        if(sensors[i] == "top_sensor")g10 += 2;
-      }
-      if(objects[i] == "robot11" && g11 < 3)
-      {
-        if(sensors[i] == "base")g11 += 1;
-        if(sensors[i] == "top_sensor")g11 += 2;
-      }
-      if(objects[i] == "robot12" && g12 < 3)
-      {
-        if(sensors[i] == "base")g12 += 1;
-        if(sensors[i] == "top_sensor")g12 += 2;
-      }
-      if(objects[i] == "robot13" && g13< 3)
-      {
-        if(sensors[i] == "base")g13 += 1;
-        if(sensors[i] == "top_sensor")g13 += 2;
-      }
-      
+    size_t pos = 0;
+    std::string token;
 
-    } 
- 
- 
-    /*for (unsigned int j = 0; j < contacts.contact(i).position_size(); ++j)
+    for (unsigned int j = 0; j<2; j++)
     {
-      std::cout << j << "  Position:"
-                << contacts.contact(i).position(j).x() << " "
-                << contacts.contact(i).position(j).y() << " "
-                << contacts.contact(i).position(j).z() << "n";
-      std::cout << "   Normal:"
-                << contacts.contact(i).normal(j).x() << " "
-                << contacts.contact(i).normal(j).y() << " "
-                << contacts.contact(i).normal(j).z() << "n";
-      std::cout << "   Depth:" << contacts.contact(i).depth(j) << "n";
-    }*/
+      pos = 0;
+      while ((pos = input_string[j].find(delimiter)) != std::string::npos) {
+        token = input_string[j].substr(0, pos);
+        parts.push_back(token);
+        input_string[j].erase(0, pos + delimiter.length());
+      }
+      parts.push_back(input_string[j]);
+      collisions.push_back(parts);
+      parts.clear();
+    }
+    
+    
+    for (int j = 0;  j<2; j++)
+    {
+      if(collisions[j][0] == "robot0")
+      {
+        if(collisions[j][2] == "base_collision") g0 = '1';
+        if(collisions[j][2] == "top_collision") g0 = '2';
+      }
+      else if(collisions[j][0] == "robot1")
+      {
+        if(collisions[j][2] == "base_collision") g1 = '1';
+        if(collisions[j][2] == "top_collision") g1 = '2';
+      }
+      else if(collisions[j][0] == "robot2")
+      {
+        if(collisions[j][2] == "base_collision") g2 = '1';
+        if(collisions[j][2] == "top_collision") g2 = '2';
+      }
+      else if(collisions[j][0] == "robot3")
+      {
+        if(collisions[j][2] == "base_collision") g3 = '1';
+        if(collisions[j][2] == "top_collision") g3 = '2';
+      }
+      else if(collisions[j][0] == "robot4")
+      {
+        if(collisions[j][2] == "base_collision") g4 = '1';
+        if(collisions[j][2] == "top_collision") g4 = '2';
+      }
+      else if(collisions[j][0] == "robot5")
+      {
+        if(collisions[j][2] == "base_collision") g5 = '1';
+        if(collisions[j][2] == "top_collision") g5 = '2';
+      }
+      else if(collisions[j][0] == "robot6")
+      {
+        if(collisions[j][2] == "base_collision") g6 = '1';
+        if(collisions[j][2] == "top_collision") g6 = '2';
+      } 
+      else if(collisions[j][0] == "robot7")
+      {
+        if(collisions[j][2] == "base_collision") g7 = '1';
+        if(collisions[j][2] == "top_collision") g7 = '2';
+      }
+      else if(collisions[j][0] == "robot8")
+      {
+        if(collisions[j][2] == "base_collision") g8 = '1';
+        if(collisions[j][2] == "top_collision") g8 = '2';
+      }
+      else if(collisions[j][0] == "robot9")
+      {
+        if(collisions[j][2] == "base_collision") g9 = '1';
+        if(collisions[j][2] == "top_collision") g9 = '2';
+      }
+      else if(collisions[j][0] == "robot10")
+      {
+        if(collisions[j][2] == "base_collision") g10 = '1';
+        if(collisions[j][2] == "top_collision") g10 = '2';
+      }
+      else if(collisions[j][0] == "robot11")
+      {
+        if(collisions[j][2] == "base_collision") g11 = '1';
+        if(collisions[j][2] == "top_collision") g11 = '2';
+      }
+      else if(collisions[j][0] == "robot12")
+      {
+        if(collisions[j][2] == "base_collision") g12 = '1';
+        if(collisions[j][2] == "top_collision") g12 = '2';
+      }
+      else if(collisions[j][0] == "robot13")
+      {
+        if(collisions[j][2] == "base_collision") g13 = '1';
+        if(collisions[j][2] == "top_collision") g13 = '2';
+      }
+    }
   }
  
- 	
+  
    
     std_msgs::String msg;
     std::stringstream ss;
-    //c_g4 = '0' + g4;
-    if(g4!=0)ROS_INFO("%d",g4);
-    ss<<"hi"<<g4;
-    //ROS_INFO("%d",g0);
-    //ss << g0  << word_sep << g1  << word_sep << g2  << word_sep << g3  << word_sep << c_g4  << word_sep << g5  << word_sep << g6  << word_sep << g7  << word_sep << g8  << word_sep << g9  << word_sep << g10  << word_sep << g11  << word_sep << g12  << word_sep << g13 ;
+    ss << g0 << word_sep << g1 << word_sep << g2 << word_sep << g3 << word_sep << g4 << word_sep << g5 << word_sep << g6 << word_sep << g7 << word_sep << g8 << word_sep << g9 << word_sep << g10 << word_sep << g11 << word_sep << g12 << word_sep << g13;
     msg.data = ss.str();
  
     //ROS_INFO("%s",msg.data.str());
- 
-    
-    chatter_pub.publish(msg);
+
+    prevUpdateTime = common::Time::GetWallTime();
+    contactSensor_pub.publish(msg);
     ros::spinOnce();
 }

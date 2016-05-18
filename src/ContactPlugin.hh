@@ -1,10 +1,19 @@
 #ifndef _GAZEBO_CONTACT_PLUGIN_HH_
 #define _GAZEBO_CONTACT_PLUGIN_HH_
 
-#include <string>
-
 #include <gazebo/gazebo.hh>
 #include <gazebo/sensors/sensors.hh>
+
+#include "ros/ros.h"
+#include "std_msgs/String.h"
+#include <gazebo/sensors/sensors.hh>
+#include <string.h>
+#include <stdio.h>
+#include <sstream>
+#include <iostream>
+#include <vector>
+
+
 
 namespace gazebo
 {
@@ -31,6 +40,15 @@ namespace gazebo
     /// \brief Connection that maintains a link between the contact sensor's
     /// updated signal and the OnUpdate callback.
     private: event::ConnectionPtr updateConnection;
+
+    ros::Publisher contactSensor_pub;
+      
+    float max_update_rate;
+    common::Time updateRate;
+    common::Time prevUpdateTime;
+
+    char word_sep ;
+
   };
 }
 #endif
