@@ -40,12 +40,15 @@
     </include>
   </group>
 
- <!-- Spawn simulated quadrotor uav
+ <!-- Spawn Albatross 
   <include file="$(find hector_quadrotor_gazebo)/launch/spawn_quadrotor.launch" >
     <arg name="model" value="$(find quad_simulator)/urdf/quadrotor.gazebo.xacro"/>
-
-  </include>-->
-
+  </include>
+-->
+<!-- Spawn Hector Quadrotor -->
+  <include file="$(find hector_quadrotor_gazebo)/launch/spawn_quadrotor.launch" >
+    <arg name="model" value="$(find hector_quadrotor_description)/urdf/quadrotor_downward_cam.gazebo.xacro"/> 
+  </include>
 
 
   
