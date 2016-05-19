@@ -5,6 +5,8 @@
 #include "nav_msgs/Odometry.h"
 #include <math.h>
 #include <string.h>
+#include <time.h>
+#include <stdlib.h> 
 
 //Parameters
 float v_max = 0.6;
@@ -272,6 +274,24 @@ public:
           pitch = ::asin(2*abcd/unitLength);
           roll = ::atan2(2*acbd, 1 - 2*(y2+x2));
       }
+  }
+
+  /**
+    Outputs angle error.
+
+    IARC documentation specifies that an error of
+    upto 20 degrees is added to the groundbot path
+    every 5 seconds. We instead of adding error every
+    5 seconds are adding 4 such errors every 20 seconds.
+  */
+  int add_multiple_error(int times)
+  {
+    int error = 0;
+    for (int i = 0; i<times; i++)
+    {
+      error += rand() % 20 - 9;
+    }
+    return error;
   }
 
   
@@ -754,14 +774,14 @@ public:
 
     if((time_present - *time_begin) > wait_period)
     {
-      angle_diff = 45;    
+      angle_diff = 45 + add_multiple_error(4);    
       calculate_turn = true;
       Caller = "time"; 
     }
 
     if(*start_turn == true)
     {
-      angle_diff = 180;
+      angle_diff = 180 + add_multiple_error(4);
       calculate_turn = true;
       *start_turn = false;
       Caller = "base";
@@ -769,7 +789,7 @@ public:
 
     if(*quad_top_turn == true)
     {
-      angle_diff = 45;
+      angle_diff = 45 + add_multiple_error(4);
       calculate_turn = true;
       *quad_top_turn = false;
       Caller = "top";
@@ -805,6 +825,7 @@ int main(int argc, char** argv)
   ros::init(argc, argv, "CreateController");
   Controller ic;
   time_begin_4 = time_begin_5 = time_begin_6 = time_begin_7 = time_begin_8 = time_begin_9 = time_begin_10 = time_begin_11 = time_begin_12 = time_begin_13 = ros::Time::now().toSec();
+  srand (time(NULL));
   ros::spin();
   return 0;
 }
