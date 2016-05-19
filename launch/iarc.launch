@@ -47,7 +47,7 @@
 -->
 <!-- Spawn Hector Quadrotor -->
   <include file="$(find hector_quadrotor_gazebo)/launch/spawn_quadrotor.launch" >
-    <arg name="model" value="$(find hector_quadrotor_description)/urdf/quadrotor_downward_cam.gazebo.xacro"/> 
+    <arg name="model" value="$(find quad_simulator)/urdf/quadrotor_downward_cam.gazebo.xacro"/> 
   </include>
 
 
