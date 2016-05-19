@@ -5,10 +5,6 @@
   </include>
 
   <!-- Spawn simulated quadrotor uav -->
-  
-  <!-- <include file="~/catkin_ws/src/SwarmProject/swarm_simulator/launch/four_robots  " -->
-
-   <!-- <node pkg="gazebo_ros" name="create_model" type= "spawn_model" args="-file /home/krishna/catkin_ws/src/QuadProject/create/model-1_4.sdf -sdf -model create" output="screen"/> -->
 
    <group ns="ground">
     <include file="$(find quad_simulator)/launch/ground.launch">
@@ -44,17 +40,11 @@
     </include>
   </group>
 
-<!-- 
-  <group ns="quad">
-    <include file="$(find cvg_sim_gazebo)/launch/spawn_quadrotor.launch" >
-    <arg name="model" value="$(find cvg_sim_gazebo)/urdf/quadrotor_sensors.urdf.xacro"/> 
-  </include>
-</group> -->
- <!-- Spawn simulated quadrotor uav -->
+ <!-- Spawn simulated quadrotor uav
   <include file="$(find hector_quadrotor_gazebo)/launch/spawn_quadrotor.launch" >
     <arg name="model" value="$(find quad_simulator)/urdf/quadrotor.gazebo.xacro"/>
 
-  </include>
+  </include>-->
 
 
 
@@ -124,10 +114,5 @@
       <arg name="init_pose" value="-x 0.807 -y -0.657 -z 0 -Y -0.683"/>
     </include>
   </group> 
-
-<!--  
-<include file="$(find cvg_sim_gazebo)/launch/spawn_quadrotor.launch" >
-    <arg name="model" value="$(find cvg_sim_gazebo)/urdf/quadrotor_sensors.urdf.xacro"/> 
-  </include> -->
 
 </launch>
