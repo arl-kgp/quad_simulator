@@ -7,15 +7,11 @@ Install Gazebo:
 ```sh
 $ sudo apt-get install ros-indigo-gazebo-ros-pkgs ros-indigo-gazebo-ros-control
 ```
-
-Now edit ~/.bashrc and add the following lines at the end of the file.
-```sh
-source ~s/catkin_ws/devel/setup.bash
-export ROS_WORKSPACE=~/catkin_ws/
-export ROS_PACKAGE_PATH+=~/catkin_ws/src
-export GAZEBO_MODEL_PATH=~/gazebo_models/
-export GAZEBO_RESOURCE_PATH=/usr/share/gazebo-2.2/worlds/
-```
-
-- Extract [gazebo_models.zip](https://drive.google.com/file/d/0B-yT84mLsuTTOGFlRUtBeWktdVk/view?usp=sharing) to your home folder
+- `$ git clone ardrone_autonomy`
+- `$ git clone tum_ardrone`
+- `$ git clone quad_simulator`
+- Checkout to `ark-world` branch of ardrone_autonomy
+- `$ catkin_make`
+- `$ roslaunch cvg_sim_gazebo iarc_with_bots.launch` and `$ rosrun quad_simulator groundbot_node`
+- or `$ roslaunch cvg_sim_gazebo iarc_world.launch` for only MAV and IARC arena without ground bots.
 
