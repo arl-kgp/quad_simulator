@@ -33,8 +33,8 @@
         </geometry>
         <material>
           <script>
-            <uri>model://iarc_with_walls/materials/scripts/</uri>
-            <uri>model://iarc_with_walls/materials/textures/</uri>
+            <uri>model://quad_simulator/models/iarc_with_walls/materials/scripts/</uri>
+            <uri>model://quad_simulator/models/iarc_with_walls/materials/textures/</uri>
             <name>IARC/FieldBorder</name>
           </script>
         </material>
@@ -51,8 +51,8 @@
         </geometry>
         <material>
           <script>
-            <uri>model://iarc_with_walls/materials/scripts/</uri>
-            <uri>model://iarc_with_walls/materials/textures/</uri>
+            <uri>model://quad_simulator/models/iarc_with_walls/materials/scripts/</uri>
+            <uri>model://quad_simulator/models/iarc_with_walls/materials/textures/</uri>
             <name>IARC/FieldBorderGreen</name>
           </script>
         </material>
@@ -69,8 +69,8 @@
         </geometry>
         <material>
           <script>
-            <uri>model://iarc_with_walls/materials/scripts/</uri>
-            <uri>model://iarc_with_walls/materials/textures/</uri>
+            <uri>model://quad_simulator/models/iarc_with_walls/materials/scripts/</uri>
+            <uri>model://quad_simulator/models/iarc_with_walls/materials/textures/</uri>
             <name>IARC/FieldBorderWhite</name>
           </script>
         </material>
@@ -87,8 +87,8 @@
         </geometry>
         <material>
           <script>
-            <uri>model://iarc_with_walls/materials/scripts/</uri>
-            <uri>model://iarc_with_walls/materials/textures/</uri>
+            <uri>model://quad_simulator/models/iarc_with_walls/materials/scripts/</uri>
+            <uri>model://quad_simulator/models/iarc_with_walls/materials/textures/</uri>
             <name>IARC/FieldBorderWhite</name>
           </script>
         </material>
@@ -104,8 +104,8 @@
         </geometry>
         <material>
           <script>
-            <uri>model://iarc_with_walls/materials/scripts/</uri>
-            <uri>model://iarc_with_walls/materials/textures/</uri>
+            <uri>model://quad_simulator/models/iarc_with_walls/materials/scripts/</uri>
+            <uri>model://quad_simulator/models/iarc_with_walls/materials/textures/</uri>
             <name>IARC/Ground</name>
           </script>
         </material>
@@ -122,8 +122,8 @@
         </geometry>
         <material>
           <script>
-            <uri>model://iarc_with_walls/materials/scripts/</uri>
-            <uri>model://iarc_with_walls/materials/textures/</uri>
+            <uri>model://quad_simulator/models/iarc_with_walls/materials/scripts/</uri>
+            <uri>model://quad_simulator/models/iarc_with_walls/materials/textures/</uri>
             <name>IARC/FieldWall</name>
           </script>
         </material>
@@ -140,8 +140,8 @@
         </geometry>
         <material>
           <script>
-            <uri>model://iarc_with_walls/materials/scripts/</uri>
-            <uri>model://iarc_with_walls/materials/textures/</uri>
+            <uri>model://quad_simulator/models/iarc_with_walls/materials/scripts/</uri>
+            <uri>model://quad_simulator/models/iarc_with_walls/materials/textures/</uri>
             <name>IARC/FieldWall</name>
           </script>
         </material>
@@ -158,8 +158,8 @@
         </geometry>
         <material>
           <script>
-            <uri>model://iarc_with_walls/materials/scripts/</uri>
-            <uri>model://iarc_with_walls/materials/textures/</uri>
+            <uri>model://quad_simulator/models/iarc_with_walls/materials/scripts/</uri>
+            <uri>model://quad_simulator/models/iarc_with_walls/materials/textures/</uri>
             <name>IARC/FieldWall</name>
           </script>
         </material>
@@ -176,8 +176,8 @@
         </geometry>
         <material>
           <script>
-            <uri>model://iarc_with_walls/materials/scripts/</uri>
-            <uri>model://iarc_with_walls/materials/textures/</uri>
+            <uri>model://quad_simulator/models/iarc_with_walls/materials/scripts/</uri>
+            <uri>model://quad_simulator/models/iarc_with_walls/materials/textures/</uri>
             <name>IARC/FieldWall</name>
           </script>
         </material>
