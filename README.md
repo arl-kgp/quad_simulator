@@ -7,6 +7,9 @@ Install Gazebo:
 ```sh
 $ sudo apt-get install ros-indigo-gazebo-ros-pkgs ros-indigo-gazebo-ros-control
 ```
+- `$ sudo apt-get install libsdl1.2-dev`
+- `$ sudo apt-get install liblapack-dev -y ; sudo apt-get install liblapack3 -y ; sudo apt-get install libopenblas-base -y ; sudo apt-get install libopenblas-dev -y ;`
+- `$ sudo apt-get install freeglut3 freeglut3-dev`
 - `$ git clone https://github.com/quadrotor-IITKgp/ardrone_autonomy.git`
 - `$ git clone https://github.com/quadrotor-IITKgp/tum_simulator.git`
 - `$ git clone https://github.com/quadrotor-IITKgp/quad_simulator.git`
