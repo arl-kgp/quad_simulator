@@ -1,6 +1,8 @@
 <?xml version="1.0" ?>
 <sdf version="1.4">
   <model name="create">
+
+    <!-- Base Link -->
     <link name="base">
       <inertial>
         <pose>0.001453 -0.000453 0.029787 0 0 0</pose>
@@ -191,11 +193,10 @@
           </contact>
           <update_rate> 5 </update_rate>
       </sensor>
-
-
     </link>
+    <!-- Base Link Ends-->
 
-
+    <!-- Left wheel Link -->
     <link name="left_wheel">
       <pose>0 0.130000 0.032000 0 0 0</pose>
       <inertial>
@@ -350,8 +351,8 @@
       <updateRate>10</updateRate>
       <leftJoint>left_wheel</leftJoint>
       <rightJoint>right_wheel</rightJoint>
-      <wheelSeparation>0.5380</wheelSeparation>
-      <wheelDiameter>0.2410</wheelDiameter>
+      <wheelSeparation>0.26</wheelSeparation>
+      <wheelDiameter>0.033000</wheelDiameter>
       <torque>20</torque>
       <commandTopic>cmd_vel</commandTopic>
       <odometryTopic>odom</odometryTopic>

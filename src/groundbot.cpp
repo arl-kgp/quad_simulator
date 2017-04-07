@@ -9,9 +9,9 @@
 #include <stdlib.h> 
 
 //Parameters
-float v_max = 0.6;
-float a_max = 0.8;
-float a_max_p = 0.06;
+float v_max = 0.06;
+float a_max = 0.08;
+float a_max_p = 0.006;
 double wait_period = 20;
 
 //Common

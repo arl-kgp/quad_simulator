@@ -4,7 +4,7 @@ project(quad_simulator)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS	gazebo_plugins gazebo_ros gazebo_msgs)
+find_package(catkin REQUIRED COMPONENTS	gazebo_plugins tum_ardrone gazebo_ros gazebo_msgs)
 
 find_package(gazebo)
 
@@ -129,11 +129,13 @@ set(GROUND_BOT
 )
 
 add_executable(groundbot_node ${GROUND_BOT})
+add_executable(gtpub src/gtpub.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(quad_simulator_node quad_simulator_generate_messages_cpp)
 target_link_libraries(groundbot_node ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+target_link_libraries(gtpub ${catkin_LIBRARIES})
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
